@@ -1,24 +1,35 @@
 import logo from './logo.svg';
 import './App.css';
+import React, {useState} from 'react'
 
 function App() {
+const [listedElem,  setlistedElem] = useState([]);
+
+
+const chandleButtonClick = (e) => {
+  e.preventDefault();
+    const newelement =+ listedElem.length;
+   // const newList = actualElem
+    setlistedElem(actualElem=> [...actualElem, newelement]);
+
+}
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  <div>
+    <h1 data-testid="welcome">hello world</h1>
+    <div>
+      <ul>
+        {listedElem.map((it)=>(
+          <li key={it} data-testid="li">{it}</li>
+        ))}
+      </ul>
     </div>
+    <button data-testid="add-comment-button"
+    onClick = {chandleButtonClick}
+    
+    >Add</button>
+  </div>
+    
+
   );
 }
 
