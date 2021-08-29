@@ -4,14 +4,19 @@ import React, {useState} from 'react'
 
 function App() {
 const [listedElem,  setlistedElem] = useState([]);
-
-
-const chandleButtonClick = (e) => {
+let [newcomment, setNewoment] = useState("");
+const placeholder = "";
+const chandleButtonClick = async (e) => {
   e.preventDefault();
-    const newelement =+ listedElem.length;
+  
+   // const newelement =+ listedElem.length;
    // const newList = actualElem
-    setlistedElem(actualElem=> [...actualElem, newelement]);
+    await setlistedElem(actualElem=> [...actualElem, newcomment]);
+    setNewoment(placeholder);
+}
 
+const handleChange = (e)=>{
+  setNewoment(e.target.value);
 }
   return (
   <div>
@@ -23,8 +28,15 @@ const chandleButtonClick = (e) => {
         ))}
       </ul>
     </div>
+    <input 
+    data-testid="comment-input" 
+    type="text"
+    value= {newcomment}
+    onChange = {handleChange}
+    placeholder={placeholder} /> 
     <button data-testid="add-comment-button"
     onClick = {chandleButtonClick}
+    type="submit"
     
     >Add</button>
   </div>
