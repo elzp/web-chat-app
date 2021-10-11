@@ -1,0 +1,19 @@
+{
+    "1":{
+        "name": "Lucas",
+        "conversations_file":"./1.json"
+    },
+    "2":{
+        "name": "Aga",
+        "conversations_file":"./2.json"
+    },
+    "3":{
+        "name": "Lucas2",
+        "conversations_file":"./3.json"
+    },
+    "4":{
+        "name": "Aga2",
+        "conversations_file":"./4.json"
+    }
+
+}
