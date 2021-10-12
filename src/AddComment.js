@@ -80,14 +80,14 @@ function AddComment({changeFnc, buttonClickFnc, newcomment, username}) {
                 <button data-testid="addbutton">Add comment</button>
             </div> */}
     <div>
-        <input 
+        {/* <input 
         style={style.input}
         data-testid="user-input"
         type="text"
         value= {username}
         onChange = {(e)=>changeFnc(e, "username")}
-        placeholder={placeholders?.user} /> 
-
+        placeholder={placeholders?.user} />  */}
+        {username}
         <textarea 
         style={style.textarea}
         data-testid="comment-input"

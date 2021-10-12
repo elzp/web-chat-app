@@ -4,7 +4,7 @@ import {shallow, configure, mount} from 'enzyme';
 import ReactTestUtils, {act} from 'react-dom/test-utils';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
-import App from './App';
+import Chat from './Chat';
 import AddComment from './AddComment';
 import Comments from './Comments';
  
@@ -14,7 +14,7 @@ afterEach(cleanup);
 // const listedElem = ""
 // const handleChange = jest.fn();
 // const chandleButtonClick = jest.fn();
-// const AppWithprops = <App data={listedElem}
+// const ChatWithprops = <Chat data={listedElem}
 //  changeFnc= {handleChange} buttonClickFnc= {chandleButtonClick}  
 //   newcomment={""} username={""} />
 
@@ -24,7 +24,7 @@ afterEach(cleanup);
 
 // cleanup()
 // it('twice adds 2 <li>', async ()=>{
-//   render(<App />);
+//   render(<Chat />);
  
 //   const button = screen.getByTestId("add-comment-button");
 //   await act(async ()=>{
@@ -45,7 +45,7 @@ afterEach(cleanup);
 describe('scenario:', ()=>{
   it('user not added username', async ()=>{
     cleanup();
-    render(<App/>);
+    render(<Chat/>);
     const button = screen.getByTestId("add-comment-button");
     const commentInput = screen.getByTestId("comment-input");
     await fireEvent.change(commentInput , { target: { value: 'some comment' } }); 
@@ -59,7 +59,7 @@ describe('scenario:', ()=>{
   );
   it('user not inputed comment to add', async ()=>{
     cleanup();
-    render(<App/>);
+    render(<Chat/>);
     const button = screen.getByTestId("add-comment-button");
     const userInput = screen.getByTestId("user-input");
     await fireEvent.change(userInput , { target: { value: 'user' } }); 
@@ -71,7 +71,7 @@ describe('scenario:', ()=>{
   })
   it('user added comment', async ()=>{
     cleanup();
-    render(<App />);
+    render(<Chat />);
     const button = screen.getByTestId("add-comment-button");
     let listedElements = screen.queryByTestId("li");
     expect(listedElements).toBeNull();
@@ -88,7 +88,7 @@ describe('scenario:', ()=>{
   })
   it('user is not able to add comment with zero inputed text', async ()=>{
     cleanup();
-    render(<App />);
+    render(<Chat />);
     const button = screen.getByTestId("add-comment-button");
     let listedElements = screen.queryByTestId("li");
     expect(listedElements).toBeNull();
@@ -104,7 +104,7 @@ describe('scenario:', ()=>{
 
   it('error message dissapears after good usage of inputs', async ()=>{
     cleanup();
-    render(<App />);
+    render(<Chat />);
     const button = screen.getByTestId("add-comment-button");
     let listedElements = screen.queryByTestId("li");
     expect(listedElements).toBeNull();
@@ -128,28 +128,28 @@ describe('scenario:', ()=>{
   })
 })
 // it('display textbox style input', ()=>{
-//   render(<App/>);
+//   render(<Chat/>);
 //   const newInput = screen.getByRole("textbox")
 //   expect(newInput).toBeInTheDocument();
 // })
 
 // describe('clicking button -', ()=>{
 //   const setlistedElem = jest.fn();
-//   const wrapper = shallow(<App onClick={setlistedElem}/>); //shallow render of app
+//   const wrChater = shallow(<Chat onClick={setlistedElem}/>); //shallow render of Chat
 
 //   it('clicking button triggers change of state of listElements',async ()=>{ //is ok
     
 //     const handleClick = jest.spyOn(React, "useState");//spyes if useState function is used
 //     act(()=>{handleClick.mockImplementation(listedElem=>[listedElem, setlistedElem]);})
 
-//     wrapper.find('[data-testid="add-comment-button"]').simulate("click");//simulate a click
+//     wrChater.find('[data-testid="add-comment-button"]').simulate("click");//simulate a click
 //     expect(setlistedElem).toBeTruthy();
 //   });
 
 
 //   it ('clicking button moves value form input textbox to li element & leaves input empty', async ()=>{ //it is ok
     
-//       render(<App/>)
+//       render(<Chat/>)
 
 //     let newInput = screen.getByTestId("comment-input"); // finds input for comment
 //     expect(newInput).toBeInTheDocument(); 
@@ -177,18 +177,18 @@ describe('scenario:', ()=>{
 // })
 
 
-describe('App should render', ()=>{
+describe('Chat should render', ()=>{
   
   it('AddComment component', async ()=>{
     cleanup();
-    render(<App/>);
+    render(<Chat/>);
     const addComment = await screen.queryByTestId("AddComment");
     expect(addComment).toBeInTheDocument();
   })
 
   it('Comments component',async ()=>{ 
     cleanup();
-    render(<App/>);
+    render(<Chat/>);
     const comments = await screen.queryByTestId("Comments");
     expect(comments).toBeInTheDocument();
   })
@@ -197,7 +197,7 @@ describe('App should render', ()=>{
 
 describe('in it',()=>{
   it('renders welcome string', () => {
-    render(<App/>); 
+    render(<Chat/>); 
     const welcomeText = screen.getByTestId("welcome");
     expect(welcomeText.textContent).toEqual("Choose with who you'd like to chat :)");
    

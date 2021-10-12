@@ -1,19 +1,27 @@
 {
     "1":{
         "name": "Lucas",
-        "conversations_file":"./1.json"
+        "pd": "Lucas",
+        "friends": [2,4],
+        "conversations": ["1-2", "1-4"]
     },
     "2":{
         "name": "Aga",
-        "conversations_file":"./2.json"
+        "pd": "Aga",
+        "friends": [1, 4],
+        "conversations": ["1-2", "2-4"]
     },
     "3":{
         "name": "Lucas2",
-        "conversations_file":"./3.json"
+        "pd": "Lucas2",
+        "friends": [],
+        "conversations": []
     },
     "4":{
         "name": "Aga2",
-        "conversations_file":"./4.json"
+        "pd": "Aga2",
+        "friends": [1, 2],
+        "conversations": ["1-4", "2-4"]
     }
 
 }

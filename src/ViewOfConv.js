@@ -9,13 +9,17 @@ function ViewOfConv(props) {
 const [listedElem,  setlistedElem] = useState([]);
 let [newcomment, setNewoment] = useState("");
 let [username, setNewusername] = useState("");
+//const loggedUser = props.loggedUser;
 // const listoffriends = Object.values(friends).map(item=>(<div >{item.name}</div>))
 
 const chandleButtonClick = async (e) => {
   if(username ==="" & newcomment ==="") return;
    // const newelement =+ listedElem.length;
    // const newList = actualElem
-    const newComment = {username: username, comment: newcomment}
+    const newComment = {
+      username: props.loggedUser, 
+      comment: newcomment,
+    }
     await setlistedElem(actualElem=> [...actualElem, newComment]);
     setNewoment("");
     setNewusername("");
@@ -27,9 +31,9 @@ const handleChange = (e, type)=>{
     case 'comment':
       setNewoment(e.target.value);
       break;
-    case "username":
-      setNewusername(e.target.value);
-      break;
+    // case "username":
+    //   setNewusername(e.target.value);
+    //   break;
     default:
       break;
   }
@@ -49,7 +53,8 @@ const style = {
     changeFnc= {handleChange} 
     buttonClickFnc= {chandleButtonClick}  
     newcomment={newcomment} 
-    username={props.username} />
+  
+    username={props.loggedUser} />
     <Comments data={listedElem}/>
   </div>
     

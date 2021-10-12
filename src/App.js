@@ -1,43 +1,15 @@
 
-import ListOfFriends from './ListOfFriends';
-import ViewOfConv from './ViewOfConv';
-// import Comments from './Comments';
-// import AddComment from './AddComment';
+import Chat from './Chat';
 import './App.css';
-import {BrowserRouter, Route, Switch } from 'react-router-dom';
-import  friends from './friends.json';
-import React/*, {useState}*/ from 'react'
- 
+// import {BrowserRouter, Route, Switch } from 'react-router-dom';
+// import  friends from './friends.json';
+import {UsernameContext}  from './Contexts/contexts'
+
+
 function App() {
-//const [listedElem,  setlistedElem] = useState([]);
-// let [newcomment, setNewoment] = useState("");
-// let [username, setNewusername] = useState("");
-// const listoffriends = Object.values(friends).map(item=>(<div >{item.name}</div>))
 
-// const chandleButtonClick = async (e) => {
-//   if(username ==="" & newcomment ==="") return;
-//    // const newelement =+ listedElem.length;
-//    // const newList = actualElem
-//     const newComment = {username: username, comment: newcomment}
-//     await setlistedElem(actualElem=> [...actualElem, newComment]);
-//     setNewoment("");
-//     setNewusername("");
 
-// }
 
-// const handleChange = (e, type)=>{
-//   switch(type){
-//     case 'comment':
-//       setNewoment(e.target.value);
-//       break;
-//     case "username":
-//       setNewusername(e.target.value);
-//       break;
-//     default:
-//       break;
-//   }
-
-// }
 const style = {
     Appdiv:{
       background: "lightgrey",
@@ -47,29 +19,14 @@ const style = {
   }
   return (
   <div style={style.Appdiv}>
-    <h1 data-testid="welcome">Choose with who you'd like to chat :)</h1>
-    <BrowserRouter> 
-        <Switch>
-
-        {Object.entries(friends).map(item=>(
-              <Route path={`/${item[0]}`}>
-              <ViewOfConv username ={item[1].name} />
-              </Route>
-            ))
-        }
-        
-     
-
-      </Switch>
-   </BrowserRouter> 
-   {/* {Object.entries(friends).map(item=>(
-            <div>
-              {`/${item[0]}`}, 
-            {item[1].name} 
-            
-            </div>))
-        } */}
-    <ListOfFriends />
+    <h1 data-testid="welcome">Welcome to your chat.</h1>
+    <UsernameContext.Provider value ={
+        'Aga2'
+        // 'You are not logged in.'
+        }>
+    <Chat/>
+    </UsernameContext.Provider>
+ 
   </div>
     
 
