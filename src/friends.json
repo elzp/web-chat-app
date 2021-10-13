@@ -12,7 +12,7 @@
         "conversations": ["1-2", "2-4"]
     },
     "3":{
-        "name": "Lucas2",
+        "name": "Lucas",
         "pd": "Lucas2",
         "friends": [],
         "conversations": []
