@@ -51,22 +51,28 @@ function LogIn(props) {
 
     return(
         <div data-testid="LogIn" style={style.friends}>
-            cos {JSON.stringify(checkUser("Lucass", "luc"))}
+            {/* cos {JSON.stringify(checkUser("Lucass", "luc"))}
             cos2 {JSON.stringify(checkUser("Lucas", "Lucas"))}
             cos3 {JSON.stringify(checkUser("Aga", "Aga"))}
+ */}
 
-
+        <div>
             Login:<input 
             value = {login}
             onChange={(e)=>{setLogin(e.target.value)}}
             />
+        </div>
+        <div>
             Password:<input 
             value ={password}
             onChange={(e)=>{setPassword(e.target.value)}}
             />
+        </div>
+        <div>
             <button 
             type="submit" 
             onClick = {logOnSubmit}>log</button>
+        </div>
             
         </div>
  

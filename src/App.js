@@ -3,7 +3,7 @@ import Chat from './Chat';
 import LogIn from './LogIn';
 import './App.css';
 import {useState} from 'react';
-import  friends from './friends.json';
+// import  friends from './friends.json';
 
 const style = {
   Appdiv:{
@@ -35,6 +35,12 @@ notValidUser={notValidUser}
 ) : 
     (<div>
     <h1 data-testid="welcome">Welcome to your chat.</h1>
+    <button type="submit"
+    onClick ={()=>{sessionStorage.setItem('name','');sessionStorage.setItem('id','-1');
+    window.location.reload(false)}}
+    >
+      Logout
+    </button>
     <Chat loggedUser={loggedUser}/> 
     </div>);
 
