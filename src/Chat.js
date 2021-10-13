@@ -33,7 +33,8 @@ const idLoggedUser = props.loggedUser.id;
         {Object.entries(friends).map(item=>{
           const conversationBox= (
             //trzeba dodać id do nazwy urzytkownika w kontekscie i ustawić tu w path
-                <Route path={`/${idLoggedUser}-${item[0]}`}>
+                <Route path={`/${idLoggedUser}-${item[0]}`}
+                key={`/${idLoggedUser}-${item[0]}`}>
                 <ViewOfConv username ={item[1].name} loggedUser={props.loggedUser}/>
                 </Route>
               )

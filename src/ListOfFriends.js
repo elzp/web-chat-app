@@ -39,7 +39,7 @@ function ListOfFriends(props) {
           {
           combo
           .map(item=>(
-            <div>
+            <div key={`/${idLoggedUser}-${item[1]}`} >
               <Link to={`/${idLoggedUser}-${item[1]}`}>
                
               {item[0]}  

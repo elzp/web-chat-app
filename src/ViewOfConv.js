@@ -2,7 +2,7 @@ import Comments from './Comments';
 import AddComment from './AddComment';
 import './App.css';
 // import {BrowserRouter, Route, Switch } from 'react-router-dom';
-import  friends from './friends.json';
+// import  friends from './friends.json';
 import React, {useState} from 'react'
  
 function ViewOfConv(props) {
@@ -21,7 +21,7 @@ const chandleButtonClick = async (e) => {
       comment: newcomment,
     }
     await setlistedElem(actualElem=> [...actualElem, newComment]);
-    
+
     setNewoment("");
     setNewusername("");
 
