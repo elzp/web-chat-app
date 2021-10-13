@@ -1,3 +1,7 @@
 import {createContext} from 'react';
 
-export const  UsernameContext = createContext('You are not logged in.');
+export const  UsernameContext = createContext(
+    {
+        name: undefined,
+        id: -1,
+    });

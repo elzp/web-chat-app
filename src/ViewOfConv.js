@@ -17,10 +17,11 @@ const chandleButtonClick = async (e) => {
    // const newelement =+ listedElem.length;
    // const newList = actualElem
     const newComment = {
-      username: props.loggedUser, 
+      username: props.loggedUser.name, 
       comment: newcomment,
     }
     await setlistedElem(actualElem=> [...actualElem, newComment]);
+    
     setNewoment("");
     setNewusername("");
 
@@ -54,7 +55,7 @@ const style = {
     buttonClickFnc= {chandleButtonClick}  
     newcomment={newcomment} 
   
-    username={props.loggedUser} />
+    username={props.loggedUser.name} />
     <Comments data={listedElem}/>
   </div>
     
