@@ -47,7 +47,8 @@ notValidUser={notValidUser}
   return (
   <div style={style.Appdiv}>
     {output}
-    <div>cos{JSON.stringify(friends)}
+    <div>
+      {/* cos{JSON.stringify(friends)} */}
     
     {/* {JSON.stringify(date.getFullYear())}-{JSON.stringify(date.getMonth()+1)}-{JSON.stringify(date.getDate())}, {JSON.stringify(date.getHours())}:{JSON.stringify(date.getMinutes())}:{JSON.stringify(date.getSeconds())} */}
     {/* {JSON.stringify(date)} */}

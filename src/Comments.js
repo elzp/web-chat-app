@@ -2,9 +2,10 @@ import React from 'react';
 
 const style = {
   commentsection:{background: "grey",
-  
+  overflowY: "scroll",
   //minWidth: "70%",
   width: "100%",
+  height: "70vh",
   },
   userAndComment:{
     display: "flex",
@@ -66,8 +67,8 @@ function Comments(props) {
     
     return(
         <div data-testid="Comments" style={style.commentsection}>
-      typeof data ?{typeof data}
-      formateddata type- {typeof formatedData}
+      {/* typeof data? {typeof data}; 
+      formateddata type- {typeof formatedData} */}
       {/* formateddata {JSON.stringify([... formatedData])} */}
             {showListOfComments}
         </div>

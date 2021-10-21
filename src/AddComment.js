@@ -41,6 +41,9 @@ function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlisted
             marginLeft: marginLeft,
 
         },
+        AddComment:{
+            height: "30vh",
+        },
     }
     const placeholders = {comment: 'Add your comment',
     user: 'username for non registered user:'};
@@ -66,7 +69,8 @@ function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlisted
         // }, [])
         
     return( 
-        <div data-testid="AddComment">
+        <div data-testid="AddComment"
+        style={style.AddComment}>
 
     <div>
 

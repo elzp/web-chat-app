@@ -14,7 +14,7 @@ const style = {
   Chatdiv:{
     background: "lightgrey",
     //height: "100%",
-    padding: "10px 3em",
+    padding: "10px 1em",
   },
 }
 
@@ -23,7 +23,8 @@ function Chat(props) {
 const idLoggedUser = props.loggedUser.id;
   return (
   <div style={style.Chatdiv}>
-    <h1 data-testid="welcome">Choose with who you'd like to chat :)</h1>
+    <div data-testid="choose">Choose with who you'd like to chat :)</div>
+    <ListOfFriends loggedUser={props.loggedUser}/>
     <UsernameContext.Consumer>
     {user=>(
     <div>
@@ -48,7 +49,6 @@ const idLoggedUser = props.loggedUser.id;
 
       </Switch>
     </BrowserRouter> 
-    <ListOfFriends loggedUser={props.loggedUser}/>
     {/* {JSON.stringify(props.loggedUser)} */}
     </div>
     )}
