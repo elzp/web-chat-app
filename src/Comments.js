@@ -37,7 +37,7 @@ const style = {
     padding: "2px 2px",
     height: "fit-content",
     wordBreak: "normal",
-    "overflow-x": "scroll",
+    overflowX: "scroll",
 
 
   },
@@ -48,24 +48,27 @@ function Comments(props) {
   // const g = "1234"
   // cost gg= g.splice(0,2)
     const { data } = props;
-    
+    const formatedData = typeof data ==="string"? JSON.parse(data): data;
     const defalutDivForCommentSection = (<div>no one added comments</div>);
-    const commentsAfterAddingFirst = ( 
+    const commentsAfterAddingFirst =  ( 
     <div>
-        {data?.map((it, indeks)=>(
-            <div style={style.userAndComment} key={indeks} data-testid="li">
-              <div style={style.user} key={it.username} data-testid="li-user">{it.username} </div>
-              <div style={style.said} key={it.said+"said"}>said:</div>
+        {formatedData?.map((it)=>(
+            <div style={style.userAndComment} key={JSON.stringify(it.time)} data-testid="li">
+              <div style={style.user} key={(it).username} data-testid="li-user">{it.username} </div>
+              <div style={style.said} key={it.said+"said"}>{it.time}</div>
               <div style={style.comment} key={it.comment +'sth'} data-testid="li-comment">{it.comment}</div>
             </div> 
         ))}
-        
+        {/* error after clicking button Add: 
+        index.js:1 Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function. */}
       </div> )
-    const showListOfComments = data.length === 0 ? defalutDivForCommentSection : commentsAfterAddingFirst;
+    const showListOfComments = formatedData === [] ? defalutDivForCommentSection : commentsAfterAddingFirst;
     
     return(
         <div data-testid="Comments" style={style.commentsection}>
-            {/* {JSON.stringify( length )} */}
+      typeof data ?{typeof data}
+      formateddata type- {typeof formatedData}
+      {/* formateddata {JSON.stringify([... formatedData])} */}
             {showListOfComments}
         </div>
  

@@ -11,7 +11,7 @@ const inputStyle = {
    width: "100%",//width: `calc(20% -2*${marginLeft} )`,
 }
 
-function AddComment({changeFnc, buttonClickFnc, newcomment, username}) {
+function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlistedElem }) {
     const style={
         input: inputStyle,
         textarea:{
@@ -49,45 +49,28 @@ function AddComment({changeFnc, buttonClickFnc, newcomment, username}) {
     const [errorIsVisible, setErrorIsVisible] = useState(false);
 
     const handleclick = (e)=>{
-        e.preventDefault();
-        if(username==="" & newcomment!==""){
-            setErrorIsVisible(true);
-            setAddCommentError("add username");
-             return;}
-        if(username!==""& newcomment===""){
+        if(
+        newcomment===""){
             setErrorIsVisible(true);
             setAddCommentError("add text to comment");
             return;}
-        if(username===""& newcomment===""){
-            setErrorIsVisible(true);
-            setAddCommentError("add some content");
-            return;}
-            setErrorIsVisible(false);
-            setAddCommentError("");
-            buttonClickFnc(e);
-            
-        
+
+             buttonClickFnc(e);
+
         
         }
+
+        // useEffect(()=>{
+        //     //do when component will unmount
+        //        return ()=>{setlistedElem([])}
+        // }, [])
+        
     return( 
         <div data-testid="AddComment">
-            {/* <div>
-                <label htmlFor="username"> your temporary username:</label>
-                <input id="username" type="text"/>
-            </div>
-            <div>
-                <textarea  placeholder="Add your comment" />
-                <button data-testid="addbutton">Add comment</button>
-            </div> */}
+
     <div>
-        {/* <input 
-        style={style.input}
-        data-testid="user-input"
-        type="text"
-        value= {username}
-        onChange = {(e)=>changeFnc(e, "username")}
-        placeholder={placeholders?.user} />  */}
-        {username}
+
+        {loggedUser}
         <textarea 
         style={style.textarea}
         data-testid="comment-input"

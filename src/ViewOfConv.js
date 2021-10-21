@@ -1,31 +1,76 @@
 import Comments from './Comments';
 import AddComment from './AddComment';
 import './App.css';
+import axios from 'axios';
 // import {BrowserRouter, Route, Switch } from 'react-router-dom';
 // import  friends from './friends.json';
-import React, {useState} from 'react'
+import React, {useState, useEffect, Suspense } from 'react'
  
 function ViewOfConv(props) {
+const username = props.username;
+const loggedUser = props.loggedUser;
+const nameOfFile = username.id < loggedUser.id ? `/${username.id}-${loggedUser.id}/conv` :
+                  `/${loggedUser.id}-${username.id}/conv` ;
+
 const [listedElem,  setlistedElem] = useState([]);
+// const [listedElem2,  setlistedElem2] = useState([]);
 let [newcomment, setNewoment] = useState("");
-let [username, setNewusername] = useState("");
-//const loggedUser = props.loggedUser;
+
 // const listoffriends = Object.values(friends).map(item=>(<div >{item.name}</div>))
 
+
+
 const chandleButtonClick = async (e) => {
-  if(username ==="" & newcomment ==="") return;
+  e.preventDefault();
+  if(
+    //username.name ==="" &
+     newcomment ==="") return;
    // const newelement =+ listedElem.length;
    // const newList = actualElem
+   const fullActualDate = new Date();
+   const actualDate = fullActualDate.getFullYear()+'-'+ fullActualDate.getMonth()+1 + '-' + 
+      fullActualDate.getDate() + ', '+ fullActualDate.getHours() +':' + fullActualDate.getMinutes() + ':' +
+      fullActualDate.getSeconds()
     const newComment = {
       username: props.loggedUser.name, 
       comment: newcomment,
+      time: actualDate,
     }
-    await setlistedElem(actualElem=> [...actualElem, newComment]);
-
+    
+    const newdata = [ newComment,  ...JSON.parse(listedElem)]
+    setlistedElem(actual=>{
+     // if(typeof actual === "string")  return [ newComment,  ...JSON.parse(actual)]
+      if(typeof actual ==="object" )  return [newComment, ...JSON.parse(actual)]
+      
+    });
+  
+   await  axios.post('http://localhost:3001'+nameOfFile,
+      { 
+        messages: newdata
+      }
+      )
+    .then(response=>console.log(response))
     setNewoment("");
-    setNewusername("");
+
+
+    
+    // await axios.get('http://localhost:3001'+ nameOfFile)
+    //  .then(response=>{
+    //    const dataFromResponse = response.data || "[]"
+    //    return setlistedElem(dataFromResponse);}) 
 
 }
+
+
+
+useEffect(  () =>  {
+  axios.get('http://localhost:3001'+ nameOfFile)
+     .then(response=>{
+       const dataFromResponse = response.data || "[]"
+       return setlistedElem(dataFromResponse);}) 
+    
+},[listedElem]//gets from file saved conversations every time when list of messages is updated in app
+);
 
 const handleChange = (e, type)=>{
   switch(type){
@@ -49,14 +94,18 @@ const style = {
   }
   return (
   <div style={style.ViewOfConv}>
-   
+ 
     <AddComment 
     changeFnc= {handleChange} 
     buttonClickFnc= {chandleButtonClick}  
     newcomment={newcomment} 
-  
-    username={props.loggedUser.name} />
+    setlistedElem={setlistedElem}
+    loggedUser={props.loggedUser.name} />
+    <Suspense fallback={<div>Comments are loading.</div>}>
     <Comments data={listedElem}/>
+    </Suspense>
+    listedElem type {typeof listedElem}; 
+    listedElem - {listedElem} ;
   </div>
     
 

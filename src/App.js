@@ -3,7 +3,7 @@ import Chat from './Chat';
 import LogIn from './LogIn';
 import './App.css';
 import {useState} from 'react';
-// import  friends from './friends.json';
+import  friends from './friends.json';
 
 const style = {
   Appdiv:{
@@ -23,7 +23,7 @@ function App() {
   // };
 
 const [loggedUser, setLoggedUser] = useState(notValidUser);
-
+// const date = new Date('2021-12-01');
 const output = loggedUser.id <1 ? (
 <div>
 <h1 data-testid="not-logged">Please, login.</h1>
@@ -47,7 +47,11 @@ notValidUser={notValidUser}
   return (
   <div style={style.Appdiv}>
     {output}
-
+    <div>cos{JSON.stringify(friends)}
+    
+    {/* {JSON.stringify(date.getFullYear())}-{JSON.stringify(date.getMonth()+1)}-{JSON.stringify(date.getDate())}, {JSON.stringify(date.getHours())}:{JSON.stringify(date.getMinutes())}:{JSON.stringify(date.getSeconds())} */}
+    {/* {JSON.stringify(date)} */}
+    </div>
   </div>
     
 

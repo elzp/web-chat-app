@@ -35,7 +35,8 @@ const idLoggedUser = props.loggedUser.id;
             //trzeba dodać id do nazwy urzytkownika w kontekscie i ustawić tu w path
                 <Route path={`/${idLoggedUser}-${item[0]}`}
                 key={`/${idLoggedUser}-${item[0]}`}>
-                <ViewOfConv username ={item[1].name} loggedUser={props.loggedUser}/>
+                <ViewOfConv username ={{name:item[1].name, id:item[0]}} 
+                loggedUser={props.loggedUser}/>
                 </Route>
               )
           return conversationBox;

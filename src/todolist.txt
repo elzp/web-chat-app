@@ -1,0 +1,4 @@
+[13.10.2021] Add funcionality of adding new friends to message with
+[13.10.2021] Add funcionality of register new member
+
+[14.10.2021] build server for db for messages - ok
