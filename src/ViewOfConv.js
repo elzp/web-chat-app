@@ -12,7 +12,7 @@ const loggedUser = props.loggedUser;
 const nameOfFile = username.id < loggedUser.id ? `/${username.id}-${loggedUser.id}/conv` :
                   `/${loggedUser.id}-${username.id}/conv` ;
 
-const [listedElem,  setlistedElem] = useState([]);
+const [listedElem,  setlistedElem] = useState("[]");
 // const [listedElem2,  setlistedElem2] = useState([]);
 let [newcomment, setNewoment] = useState("");
 
@@ -40,7 +40,8 @@ const chandleButtonClick = async (e) => {
     const newdata = [ newComment,  ...JSON.parse(listedElem)]
     setlistedElem(actual=>{
      // if(typeof actual === "string")  return [ newComment,  ...JSON.parse(actual)]
-      if(typeof actual ==="object" )  return [newComment, ...JSON.parse(actual)]
+     if(actual ===[]) return [newComment];
+      if(typeof actual ==="object" )  return JSON.stringify([newComment, ...JSON.parse(actual)])
       
     });
   
@@ -62,6 +63,14 @@ const chandleButtonClick = async (e) => {
 }
 
 
+useEffect(  () =>  {
+  axios.get('http://localhost:3001'+ nameOfFile)
+     .then(response=>{
+       const dataFromResponse = response.data || "[]"
+       return setlistedElem(dataFromResponse);}) 
+    
+},[]//gets from file saved conversations every time when list of messages is updated in app
+);
 
 useEffect(  () =>  {
   axios.get('http://localhost:3001'+ nameOfFile)
@@ -89,23 +98,23 @@ const style = {
     ViewOfConv:{
       background: "lightgrey",
       //height: "100%",
-      padding: "10px 3em",
+      padding: "10px 0",
     },
   }
   return (
   <div style={style.ViewOfConv}>
- 
+    <Suspense fallback={<div>Comments are loading.</div>}>
+    <Comments data={listedElem}/>
+    </Suspense>
     <AddComment 
     changeFnc= {handleChange} 
     buttonClickFnc= {chandleButtonClick}  
     newcomment={newcomment} 
     setlistedElem={setlistedElem}
     loggedUser={props.loggedUser.name} />
-    <Suspense fallback={<div>Comments are loading.</div>}>
-    <Comments data={listedElem}/>
-    </Suspense>
-    listedElem type {typeof listedElem}; 
-    listedElem - {listedElem} ;
+    
+    {/* listedElem type {typeof listedElem}; 
+    listedElem - {listedElem} ; */}
   </div>
     
 

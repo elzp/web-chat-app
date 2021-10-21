@@ -15,7 +15,8 @@ app.post('/:id/conv', (req,res)=>{
     console.log(req.params.id);
     console.log(req.body.messages); //this is in JSON.stringify format
 
-    fs.writeFile(req.params.id+'.json', JSON.stringify(req.body.messages),  (err)=>{ if(err) {console.log('error on '+FileName)}else{console.log(req.body.messages)}})
+    fs.writeFile(req.params.id+'.json', JSON.stringify(req.body.messages),  (err)=>{ if(err) {console.log('error on '+FileName);
+console.log(err);}else{console.log(req.body.messages)}})
     res.status(200).send(req.body.messages)
     
 });
