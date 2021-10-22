@@ -1,6 +1,7 @@
 
 import Chat from './Chat';
 import LogIn from './LogIn';
+import SignIn from './SignIn';
 import './App.css';
 import {useState} from 'react';
 import  friends from './friends.json';
@@ -31,6 +32,8 @@ const output = loggedUser.id <1 ? (
 setLoggedUser={setLoggedUser} 
 notValidUser={notValidUser}
 />
+<h1 data-testid="not-logged">Of Singn in to app.</h1>
+<SignIn />
 </div>
 ) : 
     (<div>
