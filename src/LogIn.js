@@ -3,11 +3,21 @@ import './App.css';
 import  friends from './friends.json';
 
 const style = {
-ListOfFriends:{
-    background: "grey",
-    width: "100%",
+  label:{
+    display: "block",
+    width: "10em",
   },
-  
+  input:{
+      height: "1.2em",
+  },
+  labelAndInputDiv:{
+    display: "grid",
+    gridTemplateColumns: "10em 10em",
+    gridTemplateAreas: "label input",
+  },
+  error:{
+    color:"red",
+  },
 
 }
 
@@ -56,14 +66,34 @@ function LogIn(props) {
             cos3 {JSON.stringify(checkUser("Aga", "Aga"))}
  */}
 
-        <div>
-            Login:<input 
+        <div
+        style={style.labelAndInputDiv}
+        >
+            <label
+            htmlFor = "login"
+            style={style.label}
+            >
+            Login:
+            </label>
+            <input 
+            id="login"
+            style={style.input}
             value = {login}
             onChange={(e)=>{setLogin(e.target.value)}}
             />
         </div>
-        <div>
-            Password:<input 
+        <div
+         style={style.labelAndInputDiv}>
+           <label
+            htmlFor = "passwordforlogin"
+            style={style.label}
+            >
+            Password:
+            </label>
+            <input 
+            id="passwordforlogin"
+            style={style.input}
+            type="password"
             value ={password}
             onChange={(e)=>{setPassword(e.target.value)}}
             />

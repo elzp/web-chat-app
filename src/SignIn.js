@@ -3,11 +3,21 @@ import './App.css';
 import  friends from './friends.json';
 
 const style = {
-ListOfFriends:{
-    background: "grey",
-    width: "100%",
+  label:{
+      display: "block",
+      width: "10em",
+    },
+  input:{
+      height: "1.2em",
   },
-  
+  labelAndInputDiv:{
+    display: "grid",
+    gridTemplateColumns: "10em 10em",
+    gridTemplateAreas: "label input",
+  },
+  error:{
+    color:"red",
+  },
 
 }
 
@@ -54,7 +64,7 @@ function SignIn(props) {
                 setErrorMessage((previous)=>{
                   return {
                   ...previous,
-                  password: "not even password",
+                  password: "Your passwords are not the same.",
                   }
                 })
                 
@@ -75,7 +85,7 @@ function SignIn(props) {
                 setErrorMessage((previous)=>{
                   return {
                   ...previous,
-                  email: "not even email",
+                  email: "Your email adresses are not the same.",
                   }
                 })
                  return false;}
@@ -111,14 +121,35 @@ function SignIn(props) {
     return(
         <div data-testid="LogIn" style={style.friends}>
 
-        <div>
-            username:<input 
+        <div
+        style={style.labelAndInputDiv}
+        >
+
+            <label
+              style={style.label}
+              htmlFor = "login"
+              >
+                username:
+            </label>
+            <input 
+            id = "login"
+            style={style.input}
             value = {login}
             onChange={(e)=>{setLogin(e.target.value)}}
             />
         </div>
-        <div>
-            Password:<input 
+        <div
+        style={style.labelAndInputDiv}
+        >
+            <label
+              style={style.label}
+              htmlFor = "password"
+              >
+                password:
+            </label>
+            <input 
+            id = "password"
+            style={style.input}
             value ={password}
             onChange={ async (e) => {
               await setPassword(e.target.value);
@@ -126,8 +157,18 @@ function SignIn(props) {
             }}
             />
         </div>
-        <div>
-            repeat password:<input 
+        <div
+        style={style.labelAndInputDiv}
+        >
+            <label
+              style={style.label}
+              htmlFor = "password2"
+              >
+                repeat password:
+            </label>
+            <input 
+            id = "password2"
+            style={style.input}
             value ={password2}
             onChange={async (e)=>{
               await setPassword2(e.target.value);
@@ -135,8 +176,18 @@ function SignIn(props) {
             }}
             />
         </div>
-        <div>
-            email:<input 
+        <div
+        style={style.labelAndInputDiv}
+        >
+            <label
+            style={style.label}
+            htmlFor = "email"
+            >
+              email:
+            </label> 
+            <input 
+            id = "email"
+            style={style.input}
             value ={email}
             onChange={(e)=>{
               setEmail(e.target.value)
@@ -145,8 +196,18 @@ function SignIn(props) {
             />
         </div>
          
-        <div>
-        repeat email:<input 
+        <div
+        style={style.labelAndInputDiv}
+        >
+          <label
+          style={style.label}
+          htmlFor = "email2"
+          >
+            repeat email:
+          </label>
+        <input 
+            id="email2"
+            style={style.input}
             value ={email2}
             onChange={(e)=>{
               setEmail2(e.target.value);
@@ -155,20 +216,16 @@ function SignIn(props) {
             />
         </div>
         <div>
+        {Object.values(errorMessage).map(it=>(
+              <div style={style.error}> 
+                {it}
+              </div>
+            ))}
+
             <button 
             type="submit" 
             onClick = {logOnSubmit}>sign up</button>
         </div>
-            messages{Object.values(errorMessage).map(it=>(
-              <div> 
-                {it}
-              </div>
-            ))}
-   ....
-            PASSWORD {password};
-            PASSWORD2 {password2};
-            email {email};
-            email2 {email};
         </div>
  
     );
