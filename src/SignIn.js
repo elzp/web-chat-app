@@ -19,7 +19,10 @@ function SignIn(props) {
     const [password2, setPassword2] = useState("");
     const [email, setEmail] = useState("");
     const [email2, setEmail2] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState({
+      password: "",
+      email: "",
+    });
     const userList = Object.entries(friends).map(it=>{
         const listOfUsers = 
         it[1];
@@ -34,23 +37,47 @@ function SignIn(props) {
         else {return true}; 
       }
 
-      const validateInput = (data, type)=> {
+      const validateInput = (data, type, index)=> {
         switch(type){
           case "password":
-            if(password === data){
-              setErrorMessage("")
+            if((password === data & index ===2) | (password2 === data & index ===1) //& password2 === data
+              ){
+              setErrorMessage((previous)=>{
+                return {
+                ...previous,
+                password: "",
+                }
+              })
                return  true;
               }
                else{
-                setErrorMessage("not even password")
+                setErrorMessage((previous)=>{
+                  return {
+                  ...previous,
+                  password: "not even password",
+                  }
+                })
+                
                  return false;
                 }
           case "email":
-            if(email === data){
-              setErrorMessage("")
+            if((email === data & index === 2) | (email2 === data & index === 1) //&& email2 === data
+              ){
+              setErrorMessage((previous)=>{
+                return {
+                ...previous,
+                email: "",
+                }
+              })
+              
                return  true;}
               else{
-                setErrorMessage("not even email")
+                setErrorMessage((previous)=>{
+                  return {
+                  ...previous,
+                  email: "not even email",
+                  }
+                })
                  return false;}
           default:
             return false;
@@ -93,22 +120,28 @@ function SignIn(props) {
         <div>
             Password:<input 
             value ={password}
-            onChange={(e)=>{setPassword(e.target.value)}}
+            onChange={ async (e) => {
+              await setPassword(e.target.value);
+              validateInput(e.target.value, "password", 1);
+            }}
             />
         </div>
         <div>
             repeat password:<input 
             value ={password2}
-            onChange={(e)=>{
-              setPassword2(e.target.value);
-              validateInput(e.target.value, "password");
+            onChange={async (e)=>{
+              await setPassword2(e.target.value);
+              validateInput(e.target.value, "password", 2);
             }}
             />
         </div>
         <div>
             email:<input 
             value ={email}
-            onChange={(e)=>{setEmail(e.target.value)}}
+            onChange={(e)=>{
+              setEmail(e.target.value)
+              validateInput(e.target.value, "email", 1);
+            }}
             />
         </div>
          
@@ -117,17 +150,21 @@ function SignIn(props) {
             value ={email2}
             onChange={(e)=>{
               setEmail2(e.target.value);
-              validateInput(e.target.value, "email");
+              validateInput(e.target.value, "email", 2);
             }}
             />
         </div>
         <div>
             <button 
             type="submit" 
-            onClick = {logOnSubmit}>log</button>
+            onClick = {logOnSubmit}>sign up</button>
         </div>
-            {errorMessage}
-
+            messages{Object.values(errorMessage).map(it=>(
+              <div> 
+                {it}
+              </div>
+            ))}
+   ....
             PASSWORD {password};
             PASSWORD2 {password2};
             email {email};
