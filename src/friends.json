@@ -1,27 +1,62 @@
 {
-    "1":{
+    "1": {
         "name": "Lucas",
         "pd": "Lucas",
-        "friends": [2,4],
-        "conversations": ["1-2", "1-4"]
+        "friends": [
+            2,
+            4
+        ],
+        "conversations": [
+            "1-2",
+            "1-4"
+        ],
+        "email": "lucas@wp.pl"
     },
-    "2":{
+    "2": {
         "name": "Aga",
         "pd": "Aga",
-        "friends": [1, 4],
-        "conversations": ["1-2", "2-4"]
+        "friends": [
+            1,
+            4
+        ],
+        "conversations": [
+            "1-2",
+            "2-4"
+        ],
+        "email": "aga@wp.pl"
     },
-    "3":{
+    "3": {
         "name": "Lucas",
         "pd": "Lucas2",
         "friends": [],
-        "conversations": []
+        "conversations": [],
+        "email": "lucas2@wp.pl"
     },
-    "4":{
+    "4": {
         "name": "Aga2",
         "pd": "Aga2",
-        "friends": [1, 2],
-        "conversations": ["1-4", "2-4"]
+        "friends": [
+            1,
+            2
+        ],
+        "conversations": [
+            "1-4",
+            "2-4"
+        ],
+        "email": "aga2@wp.pl"
+    },
+    "5": {
+        "name": "i",
+        "pd": "i",
+        "friends": [],
+        "conversations": [],
+        "email": "i@wp.pl"
+    },
+    "6": {
+        "name": "q",
+        "pd": "q",
+        "friends": [],
+        "conversations": [],
+        "email": "q@wp.pl"
     }
-
 }

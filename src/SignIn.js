@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
+import axios from 'axios';
 import  friends from './friends.json';
 
 const style = {
@@ -94,27 +95,44 @@ function SignIn(props) {
           }
         
       }
-      const logOnSubmit = () => {
+      const logOnSubmit = async () => {
         
         const newUser ={
         "name": login,
         "pd": password,
         "friends": [],
         "conversations": [],
+        "email":email,
         }  
-        const canBeAdded = !checkIsNewUserDataInDB();
-        if(canBeAdded&&errorMessage ===""){
-        //axios.post()  or patch call- sending data from form
-        //.then(response =>{ 
-        //   if(response ==="saved") {
+        // const canBeAdded = !checkIsNewUserDataInDB();
+        console.log(
+          // canBeAdded, 
+          errorMessage)
+        if(
+          // canBeAdded && 
+          errorMessage.email ==="" && errorMessage.password ===""){
+        
+        await axios.post('http://localhost:3001/newuser',newUser)  //or patch call- sending data from form
+        .then(response =>{ 
+          console.log('app POSTED new user')
+          
+          if(response.data ==="saved") {
           setLogin("");
           
           setPassword("");
           setPassword2("");
           setEmail("");
           setEmail2("");
-        //  }
-        // })
+         }
+         if(response.data === "used email") {
+          setErrorMessage((previous)=>{
+            return {
+            ...previous,
+            email: "Your email adresses was used in this app before.",
+            }
+          })
+         }
+        })
         }
       }
 
@@ -127,12 +145,12 @@ function SignIn(props) {
 
             <label
               style={style.label}
-              htmlFor = "login"
+              htmlFor = "username"
               >
                 username:
             </label>
             <input 
-            id = "login"
+            id = "username"
             style={style.input}
             value = {login}
             onChange={(e)=>{setLogin(e.target.value)}}
@@ -216,15 +234,16 @@ function SignIn(props) {
             />
         </div>
         <div>
-        {Object.values(errorMessage).map(it=>(
-              <div style={style.error}> 
-                {it}
+        {Object.entries(errorMessage).map(it=>(
+              <div style={style.error}
+              key={it[0]}> 
+                {it[1]}
               </div>
             ))}
 
             <button 
             type="submit" 
-            onClick = {logOnSubmit}>sign up</button>
+            onClick = {()=>logOnSubmit()}>sign up</button>
         </div>
         </div>
  
