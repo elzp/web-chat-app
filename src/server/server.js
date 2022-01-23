@@ -31,14 +31,13 @@ app.post('/newuser', async (req, res)=>{
     const actualListOfFriendsFromDB= fs.readFileSync(fileDirectory, 'utf8');
     const parsedData = JSON.parse(actualListOfFriendsFromDB);
     //check if new user's email is in database
-    const isEmailInDB = Object.entries(parsedData).map(it=>{it[1].email}).filter(it=> it === userToAdd.email)
-    console.log("isEmailInDB" ,isEmailInDB);
-    if(isEmailInDB !==[]){
+    const isEmailInDB = Object.values(parsedData).filter(it=>it.email=== userToAdd.email);
+    if(isEmailInDB.length >0){
         res.json("used email")
     }
     else{
     const dataToSaveInFile = {...parsedData, [Object.keys(parsedData).length+1]: userToAdd};
-    
+
     fs.writeFile(fileDirectory, JSON.stringify(dataToSaveInFile),  (err)=>{ 
         if(err) {
             console.log('error on '+fileDirectory);
