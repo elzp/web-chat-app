@@ -33,6 +33,7 @@ function SignIn(props) {
     const [errorMessage, setErrorMessage] = useState({
       password: "",
       email: "",
+      emptyNameOrPassword: ""
     });
     const userList = Object.entries(friends).map(it=>{
         const listOfUsers = 
@@ -108,6 +109,15 @@ function SignIn(props) {
         console.log(
           // canBeAdded, 
           errorMessage)
+        if(newUser.name === "" | newUser.pd === ""){
+            setErrorMessage((previous)=>{
+              return {
+              ...previous,
+              emptyNameOrPassword: "You not give us any name or password.",
+              }
+            });
+            return;
+           }
         if(
           // canBeAdded && 
           errorMessage.email ==="" && errorMessage.password ===""){
@@ -131,6 +141,14 @@ function SignIn(props) {
             email: "Your email adresses was used in this app before.",
             }
           })
+         }
+         if(response.data === "saved") {
+          setErrorMessage((previous)=>{
+            return {
+            ...previous,
+            email: "",
+            }
+          }) 
          }
         })
         }
@@ -208,6 +226,12 @@ function SignIn(props) {
             style={style.input}
             value ={email}
             onChange={(e)=>{
+              setErrorMessage((previous)=>{
+                return {
+                ...previous,
+                email: "",
+                }
+              })
               setEmail(e.target.value)
               validateInput(e.target.value, "email", 1);
             }}
@@ -228,6 +252,12 @@ function SignIn(props) {
             style={style.input}
             value ={email2}
             onChange={(e)=>{
+              setErrorMessage((previous)=>{
+                return {
+                ...previous,
+                email: "",
+                }
+              })
               setEmail2(e.target.value);
               validateInput(e.target.value, "email", 2);
             }}
