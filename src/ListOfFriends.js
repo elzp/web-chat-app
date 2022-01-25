@@ -8,7 +8,17 @@ ListOfFriends:{
     background: "grey",
     width: "100%",
   },
-  
+FriendDiv: {
+  width: "100px",
+  textAlign: "center",
+  padding: "5px 0",
+  borderLeft: "1px solid grey",
+},
+Link: {
+  "text-decoration": "none",  
+  width: "100px",
+  color: "black",
+  },
 
 }
 
@@ -39,10 +49,15 @@ function ListOfFriends(props) {
           {
           combo
           .map(item=>(
-            <div key={`/${idLoggedUser}-${item[1]}`} >
+            <div key={`/${idLoggedUser}-${item[1]}`} 
+            style={style.Link}>
               <Link to={`/${idLoggedUser}-${item[1]}`}>
-               
+              <div
+              id="link"
+              style={style.FriendDiv}
+              > 
               {item[0]}  
+              </div>
               </Link>
             </div>
 
