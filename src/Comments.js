@@ -3,42 +3,46 @@ import React from 'react';
 const style = {
   commentsection:{background: "grey",
   overflowY: "scroll",
-  //minWidth: "70%",
   width: "100%",
   height: "70vh",
   },
   userAndComment:{
-    display: "flex",
-    // "flex-direction": "column",
+    display: "grid",
+    "grid-template-areas": '"name comment" "name time"',
+    "grid-template-columns": "auto 85%",
     borderRadius: "5%",
     border: "1px solid grey",
     padding: "1em",
+    width: "auto",
   },
   user: {
-    background: "darkgrey",
-    borderRadius: "10%",
+    "grid-area": "name",
+    background: "lightgrey",
+    borderRadius: "10px",
     border: "1px solid darkgrey",
-    width: "20%",
     height: "fit-content",
     marginRight: "3px",
-    padding: "2px 2px",
-    textAlign: "left",
+    padding: "2px 10px 2px",
+    textAlign: "right",
+    wordBreak: "break-all",
 
 
   },
-  said: {
+  time: {
+  "grid-area": "time",
   fontSize: "0.6em",
-  width: "3em",
+  color: "white",
   
 },
   comment: {
+    "grid-area": "comment",
     background: "lightgrey",
     border: "1px solid grey",
-    width: "80%",
-    padding: "2px 2px",
+    width: "95%",
+    padding: "10px 10px",
     height: "fit-content",
-    wordBreak: "normal",
-    overflowX: "scroll",
+    wordBreak: "break-all",
+    "border-radius": "10px",
 
 
   },
@@ -56,7 +60,7 @@ function Comments(props) {
         {formatedData?.map((it)=>(
             <div style={style.userAndComment} key={JSON.stringify(it.time)} data-testid="li">
               <div style={style.user} key={(it).username} data-testid="li-user">{it.username} </div>
-              <div style={style.said} key={it.said+"said"}>{it.time}</div>
+              <div style={style.time} key={it.time+"said"}>{it.time}</div>
               <div style={style.comment} key={it.comment +'sth'} data-testid="li-comment">{it.comment}</div>
             </div> 
         ))}
