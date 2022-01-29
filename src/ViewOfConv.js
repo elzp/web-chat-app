@@ -33,6 +33,7 @@ const chandleButtonClick = async (e) => {
       fullActualDate.getSeconds()
     const newComment = {
       username: props.loggedUser.name, 
+      id: props.loggedUser.id,
       comment: newcomment,
       time: actualDate,
     }
@@ -104,7 +105,8 @@ const style = {
   return (
   <div style={style.ViewOfConv}>
     <Suspense fallback={<div>Comments are loading.</div>}>
-    <Comments data={listedElem}/>
+    <Comments data={listedElem}
+     loggedUser={loggedUser}/>
     </Suspense>
     <AddComment 
     changeFnc= {handleChange} 
