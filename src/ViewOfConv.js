@@ -69,7 +69,7 @@ useEffect(  () =>  {
        const dataFromResponse = response.data || "[]"
        return setlistedElem(dataFromResponse);}) 
     
-},[]//gets from file saved conversations every time when list of messages is updated in app
+},[nameOfFile]//gets from file saved conversations every time when list of messages is updated in app
 );
 
 useEffect(  () =>  {
@@ -78,7 +78,7 @@ useEffect(  () =>  {
        const dataFromResponse = response.data || "[]"
        return setlistedElem(dataFromResponse);}) 
     
-},[listedElem]//gets from file saved conversations every time when list of messages is updated in app
+},[listedElem, nameOfFile]//gets from file saved conversations every time when list of messages is updated in app
 );
 
 const handleChange = (e, type)=>{
