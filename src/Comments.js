@@ -59,7 +59,7 @@ function Comments(props) {
     const { data } = props;
     const formatedData = typeof data ==="string"? JSON.parse(data): data;
     const defalutDivForCommentSection = (<div>no one added comments</div>);
-    const commentsAfterAddingFirst =  ( 
+    const showListOfComments =  ( 
     <div>
         {formatedData?.map((it)=>(
             <div 
@@ -68,10 +68,10 @@ function Comments(props) {
             </div> 
         ))}
       </div> )
-    const showListOfComments = formatedData.length === 0 ? defalutDivForCommentSection : commentsAfterAddingFirst;
     
     return(
         <div data-testid="Comments" style={style.commentsection}>
+      {data === "[]" && defalutDivForCommentSection}
             {showListOfComments}
         </div>
  
