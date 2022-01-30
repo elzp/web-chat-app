@@ -16,13 +16,14 @@ const style = {
         borderRadius: "10px",
       },
 }
-function Comment({oneComment }) {
+function Comment({oneComment, childStyle }) {
 
     return(
-        <div>
+        <div
+        style={childStyle.userComment}>
             {/* <div style={style.user} key={oneComment.username} data-testid="li-user">{oneComment.username} </div> */}
-              <div style={style.time} key={oneComment.time+"said"}>{`${oneComment.time}, ${oneComment.username}, ${oneComment.id}`}</div>
-              <div style={style.comment} key={oneComment.comment +'sth'} data-testid="li-comment">{oneComment.comment}</div>
+              <div style={childStyle.time} key={oneComment.time+"said"}>{`${oneComment.time}, ${oneComment.username}`}</div>
+              <div style={childStyle.comment} key={oneComment.comment +'sth'} data-testid="li-comment">{oneComment.comment}</div>
         </div>
 
     );
