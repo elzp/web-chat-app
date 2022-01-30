@@ -3,50 +3,65 @@ import Comment from './Comment';
 
 const style = {
   commentsection:{background: "grey",
-  overflowY: "scroll",
+  // overflowY: "scroll",
   width: "100%",
   height: "70vh",
+  overflowX: "hidden",
   },
-  userAndComment:{
+}
+const loggedUser ={
+  userComment:{
     display: "grid",
-    "grid-template-areas": '"name comment" "name time"',
-    "grid-template-columns": "auto 85%",
+    gridTemplateAreas: '"name comment" "name time"',
+    gridTemplateColumns: "auto 85%",
     borderRadius: "5%",
     border: "1px solid grey",
-    padding: "1em",
+    padding: ".2em",
     width: "auto",
-  },
-  user: {
-    "grid-area": "name",
-    background: "lightgrey",
-    borderRadius: "10px",
-    border: "1px solid darkgrey",
-    height: "fit-content",
-    marginRight: "3px",
-    padding: "2px 10px 2px",
-    textAlign: "right",
-    wordBreak: "break-all",
-
-
+    "margin-right": ".5em",
   },
   time: {
-  "grid-area": "time",
-  fontSize: "0.6em",
-  color: "white",
-  
-},
-  comment: {
-    "grid-area": "comment",
-    background: "lightgrey",
-    border: "1px solid grey",
-    width: "95%",
-    padding: "10px 10px",
-    height: "fit-content",
-    wordBreak: "break-all",
-    "border-radius": "10px",
-
-
+    gridArea: "time",
+    fontSize: "0.6em",
+    color: "white", 
   },
+    comment: {
+      gridArea: "comment",
+      background: "lightgrey",
+      border: "1px solid grey",
+      width: "95%",
+      padding: "10px 10px",
+      height: "fit-content",
+      wordBreak: "break-all",
+      borderRadius: "10px",
+    },
+}
+const friendUser = {
+  userComment:{
+    display: "grid",
+    gridTemplateAreas: '"comment name" "time name "',
+    gridTemplateColumns: "85% auto",
+    borderRadius: "5%",
+    border: "1px solid grey",
+    padding: ".2em",
+    width: "auto",
+    marginLeft: ".5em",
+  },
+  time: {
+    gridArea: "time",
+    fontSize: "0.6em",
+    color: "black", 
+  },
+    comment: {
+      gridArea: "comment",
+      background: "yellow",
+      border: "1px solid grey",
+      width: "95%",
+      padding: "10px 10px",
+      height: "fit-content",
+      wordBreak: "break-all",
+      borderRadius: "10px",
+    },
 
 }
 
@@ -64,7 +79,10 @@ function Comments(props) {
         {formatedData?.map((it)=>(
             <div 
             key={JSON.stringify(it.time)} data-testid="li">
-             <Comment oneComment={it}/>
+             {
+               props.loggedUser.id === it.id ? <Comment childStyle={loggedUser} oneComment={it}/> :
+               <Comment childStyle={friendUser} oneComment={it}/>
+             }
             </div> 
         ))}
       </div> )
