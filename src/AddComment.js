@@ -74,7 +74,7 @@ function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlisted
 
     <div>
 
-        {loggedUser}
+        {/* Hello {loggedUser} */}
         <textarea 
         style={style.textarea}
         data-testid="comment-input"

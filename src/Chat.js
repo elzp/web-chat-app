@@ -23,7 +23,6 @@ function Chat(props) {
 const idLoggedUser = props.loggedUser.id;
   return (
   <div style={style.Chatdiv}>
-    <div data-testid="choose">Choose with who you'd like to chat :)</div>
     <ListOfFriends loggedUser={props.loggedUser}/>
     <UsernameContext.Consumer>
     {user=>(

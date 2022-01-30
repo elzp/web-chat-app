@@ -44,6 +44,7 @@ function ListOfFriends(props) {
   
     return(
         <div data-testid="ListOfFriends" style={style.friends}>
+          <div data-testid="choose">Choose with who you'd like to chat :)</div>
           <BrowserRouter
               forceRefresh={true}>
           {
