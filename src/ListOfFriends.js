@@ -16,6 +16,12 @@ const style = {
   border: "1px solid white",
   // borderRight: "1px solid grey",
 },
+  actualFriendDiv: {
+    textAlign: "center",
+    padding: "5px 0",
+    border: "1px solid white",
+    background: "white",
+  },
 Link: {
   textDecoration: "none",  
     width: "7em",
@@ -29,6 +35,7 @@ Link: {
 
 function ListOfFriends(props) {
   let {pathname} = useLocation();
+  const idOfActualFriend = Number(pathname.match(/(?<=-)([\d]+)/)[0]); 
   const dataforuser = Object.entries(friend);  
   const numbersOfFriends = dataforuser
     .filter(it=>it[1].name ===props.loggedUser.name)[0][1]
@@ -56,12 +63,21 @@ function ListOfFriends(props) {
             <div key={`/${idLoggedUser}-${item[1]}`} 
             style={style.Link}>
               <Link to={`/${idLoggedUser}-${item[1]}`}>
-              <div
+              {item[1] === idOfActualFriend?
+              (<div
+              id="link"
+              style={style.actualFriendDiv}
+              > 
+              {item[0]}
+              </div>)
+              :
+              (<div
               id="link"
               style={style.individualFriendDiv}
               > 
-              {item[0]}  
+              {item[0]}
               </div>
+              )}
               </Link>
             </div>
 
