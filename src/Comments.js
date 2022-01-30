@@ -50,8 +50,7 @@ const style = {
 }
 
 function Comments(props) {
-  // const g = "1234"
-  // cost gg= g.splice(0,2)
+ 
     const { data } = props;
     const formatedData = typeof data ==="string"? JSON.parse(data): data;
     const defalutDivForCommentSection = (<div>no one added comments</div>);
@@ -64,10 +63,8 @@ function Comments(props) {
               <div style={style.comment} key={it.comment +'sth'} data-testid="li-comment">{it.comment}</div>
             </div> 
         ))}
-        {/* error after clicking button Add: 
-        index.js:1 Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function. */}
       </div> )
-    const showListOfComments = formatedData === [] ? defalutDivForCommentSection : commentsAfterAddingFirst;
+    const showListOfComments = formatedData.length === 0 ? defalutDivForCommentSection : commentsAfterAddingFirst;
     
     return(
         <div data-testid="Comments" style={style.commentsection}>
