@@ -35,7 +35,8 @@ Link: {
 
 function ListOfFriends(props) {
   let {pathname} = useLocation();
-  const idOfActualFriend = Number(pathname.match(/(?<=-)([\d]+)/)[0]); 
+   const idOfActualFriend = /(?<=-)([\d]+)/.test(pathname)? Number(pathname.match(/(?<=-)([\d]+)/)[0]) :
+   0; 
   const dataforuser = Object.entries(friend);  
   const numbersOfFriends = dataforuser
     .filter(it=>it[1].name ===props.loggedUser.name)[0][1]
