@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { BrowserRouter, Link, useLocation } from 'react-router-dom';
 import './App.css';
 import  friend from './friends.json';
 
@@ -22,10 +22,9 @@ Link: {
 
 }
 
-//
-function ListOfFriends(props) {
 
-  //  const listoffriends = Object.values(friends).map(item=>(<div >{item.name}</div>))
+function ListOfFriends(props) {
+  let {pathname} = useLocation();
   const dataforuser = Object.entries(friend);  
   const numbersOfFriends = dataforuser
     .filter(it=>it[1].name ===props.loggedUser.name)[0][1]
@@ -41,12 +40,10 @@ function ListOfFriends(props) {
      const combo =  namesoffiends.map((it, index)=>[it,numbersOfFriends[index], urlsoffiends[index]]);
      const idLoggedUser = props.loggedUser.id;
      
-  
     return(
         <div data-testid="ListOfFriends" style={style.friends}>
           <div data-testid="choose">Choose with who you'd like to chat :)</div>
-          <BrowserRouter
-              forceRefresh={true}>
+          <div>
           {
           combo
           .map(item=>(
@@ -63,10 +60,8 @@ function ListOfFriends(props) {
             </div>
 
           ))}
-          </BrowserRouter>
-          {/* {JSON.stringify(combo)} */}
+          </div>
         </div>
- 
     );
 };
 
