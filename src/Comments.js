@@ -1,4 +1,5 @@
 import React from 'react';
+import Comment from './Comment';
 
 const style = {
   commentsection:{background: "grey",
@@ -49,6 +50,10 @@ const style = {
 
 }
 
+const loggedUser ={
+}
+const friendUser = {
+  }
 function Comments(props) {
  
     const { data } = props;
@@ -57,10 +62,9 @@ function Comments(props) {
     const commentsAfterAddingFirst =  ( 
     <div>
         {formatedData?.map((it)=>(
-            <div style={style.userAndComment} key={JSON.stringify(it.time)} data-testid="li">
-              <div style={style.user} key={(it).username} data-testid="li-user">{it.username} </div>
-              <div style={style.time} key={it.time+"said"}>{it.time}</div>
-              <div style={style.comment} key={it.comment +'sth'} data-testid="li-comment">{it.comment}</div>
+            <div 
+            key={JSON.stringify(it.time)} data-testid="li">
+             <Comment oneComment={it}/>
             </div> 
         ))}
       </div> )
@@ -68,9 +72,6 @@ function Comments(props) {
     
     return(
         <div data-testid="Comments" style={style.commentsection}>
-      {/* typeof data? {typeof data}; 
-      formateddata type- {typeof formatedData} */}
-      {/* formateddata {JSON.stringify([... formatedData])} */}
             {showListOfComments}
         </div>
  
