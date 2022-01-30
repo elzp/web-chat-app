@@ -65,10 +65,6 @@ const friendUser = {
 
 }
 
-const loggedUser ={
-}
-const friendUser = {
-  }
 function Comments(props) {
  
     const { data } = props;

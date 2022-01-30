@@ -4,20 +4,30 @@ import './App.css';
 import  friend from './friends.json';
 
 const style = {
-ListOfFriends:{
-    background: "grey",
-    width: "100%",
+  allFriends:{
+    marginTop: "2px",
+    display: "flex",
+    flexFlow: "row wrap",
   },
-FriendDiv: {
-  width: "100px",
+  individualFriendDiv: {
+  // width: "100px",
   textAlign: "center",
   padding: "5px 0",
-  borderLeft: "1px solid grey",
+  border: "1px solid white",
+  // borderRight: "1px solid grey",
 },
+  actualFriendDiv: {
+    textAlign: "center",
+    padding: "5px 0",
+    border: "1px solid white",
+    background: "white",
+  },
 Link: {
-  "text-decoration": "none",  
-  width: "100px",
-  color: "black",
+  textDecoration: "none",  
+    width: "7em",
+    // width: "auto",
+    color: "black",
+    margin: "2px 4px",
   },
 
 }
@@ -25,6 +35,7 @@ Link: {
 
 function ListOfFriends(props) {
   let {pathname} = useLocation();
+  const idOfActualFriend = Number(pathname.match(/(?<=-)([\d]+)/)[0]); 
   const dataforuser = Object.entries(friend);  
   const numbersOfFriends = dataforuser
     .filter(it=>it[1].name ===props.loggedUser.name)[0][1]
@@ -41,21 +52,32 @@ function ListOfFriends(props) {
      const idLoggedUser = props.loggedUser.id;
      
     return(
-        <div data-testid="ListOfFriends" style={style.friends}>
+        <div data-testid="ListOfFriends" >
           <div data-testid="choose">Choose with who you'd like to chat :)</div>
-          <div>
+          <div
+          style={style.allFriends}
+          >
           {
           combo
           .map(item=>(
             <div key={`/${idLoggedUser}-${item[1]}`} 
             style={style.Link}>
               <Link to={`/${idLoggedUser}-${item[1]}`}>
-              <div
+              {item[1] === idOfActualFriend?
+              (<div
               id="link"
-              style={style.FriendDiv}
+              style={style.actualFriendDiv}
               > 
-              {item[0]}  
+              {item[0]}
+              </div>)
+              :
+              (<div
+              id="link"
+              style={style.individualFriendDiv}
+              > 
+              {item[0]}
               </div>
+              )}
               </Link>
             </div>
 
