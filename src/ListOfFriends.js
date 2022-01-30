@@ -4,20 +4,24 @@ import './App.css';
 import  friend from './friends.json';
 
 const style = {
-ListOfFriends:{
-    background: "grey",
-    width: "100%",
+  allFriends:{
+    marginTop: "2px",
+    display: "flex",
+    flexFlow: "row wrap",
   },
-FriendDiv: {
-  width: "100px",
+  individualFriendDiv: {
+  // width: "100px",
   textAlign: "center",
   padding: "5px 0",
-  borderLeft: "1px solid grey",
+  border: "1px solid white",
+  // borderRight: "1px solid grey",
 },
 Link: {
-  "text-decoration": "none",  
-  width: "100px",
-  color: "black",
+  textDecoration: "none",  
+    width: "7em",
+    // width: "auto",
+    color: "black",
+    margin: "2px 4px",
   },
 
 }
@@ -41,9 +45,11 @@ function ListOfFriends(props) {
      const idLoggedUser = props.loggedUser.id;
      
     return(
-        <div data-testid="ListOfFriends" style={style.friends}>
+        <div data-testid="ListOfFriends" >
           <div data-testid="choose">Choose with who you'd like to chat :)</div>
-          <div>
+          <div
+          style={style.allFriends}
+          >
           {
           combo
           .map(item=>(
@@ -52,7 +58,7 @@ function ListOfFriends(props) {
               <Link to={`/${idLoggedUser}-${item[1]}`}>
               <div
               id="link"
-              style={style.FriendDiv}
+              style={style.individualFriendDiv}
               > 
               {item[0]}  
               </div>
