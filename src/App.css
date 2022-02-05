@@ -9,7 +9,10 @@
   text-align: center;
   height:100%;
 }
-
+a {
+  text-decoration: none;
+  color: inherit;
+}
 button {
   background-color: black;
   color: rgb(231, 176, 176);
@@ -17,6 +20,9 @@ button {
   text-align: center;
   border-radius: 5%;
   border: solid black;
+}
+#link:hover {
+  background-color: white;
 }
 /* .App-logo {
   height: 40vmin;
