@@ -28,9 +28,10 @@ const chandleButtonClick = async (e) => {
    // const newelement =+ listedElem.length;
    // const newList = actualElem
    const fullActualDate = new Date();
-   const actualDate = fullActualDate.getFullYear()+'-'+ fullActualDate.getMonth()+1 + '-' + 
-      fullActualDate.getDate() + ', '+ fullActualDate.getHours() +':' + fullActualDate.getMinutes() + ':' +
-      fullActualDate.getSeconds()
+   const createTwonumberedData = (oneNumberedData) => `${oneNumberedData}`.length ===1? `0${oneNumberedData}`: `${oneNumberedData}`;
+   const actualDate = fullActualDate.getFullYear()+'-'+ createTwonumberedData(fullActualDate.getMonth()+1) + '-' + 
+   createTwonumberedData(fullActualDate.getDate()) + ', '+ createTwonumberedData(fullActualDate.getHours()) +':' +
+   createTwonumberedData(fullActualDate.getMinutes()) + ':' + createTwonumberedData(fullActualDate.getSeconds())
     const newComment = {
       username: props.loggedUser.name, 
       comment: newcomment,
