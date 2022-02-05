@@ -23,12 +23,13 @@ function Chat(props) {
 const idLoggedUser = props.loggedUser.id;
   return (
   <div style={style.Chatdiv}>
-    <div data-testid="choose">Choose with who you'd like to chat :)</div>
+    <BrowserRouter
+    forceRefresh={false}>
     <ListOfFriends loggedUser={props.loggedUser}/>
     <UsernameContext.Consumer>
     {user=>(
     <div>
-      <BrowserRouter> 
+       
         <Switch>
 
         {Object.entries(friends).map(item=>{
@@ -48,13 +49,13 @@ const idLoggedUser = props.loggedUser.id;
      
 
       </Switch>
-    </BrowserRouter> 
+     
     {/* {JSON.stringify(props.loggedUser)} */}
     </div>
     )}
 
    </ UsernameContext.Consumer>
-    
+   </BrowserRouter> 
   </div>
     
 

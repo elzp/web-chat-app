@@ -34,6 +34,7 @@ const chandleButtonClick = async (e) => {
    createTwonumberedData(fullActualDate.getMinutes()) + ':' + createTwonumberedData(fullActualDate.getSeconds())
     const newComment = {
       username: props.loggedUser.name, 
+      id: props.loggedUser.id,
       comment: newcomment,
       time: actualDate,
     }
@@ -70,7 +71,7 @@ useEffect(  () =>  {
        const dataFromResponse = response.data || "[]"
        return setlistedElem(dataFromResponse);}) 
     
-},[]//gets from file saved conversations every time when list of messages is updated in app
+},[nameOfFile]//gets from file saved conversations every time when list of messages is updated in app
 );
 
 useEffect(  () =>  {
@@ -79,7 +80,7 @@ useEffect(  () =>  {
        const dataFromResponse = response.data || "[]"
        return setlistedElem(dataFromResponse);}) 
     
-},[listedElem]//gets from file saved conversations every time when list of messages is updated in app
+},[listedElem, nameOfFile]//gets from file saved conversations every time when list of messages is updated in app
 );
 
 const handleChange = (e, type)=>{
@@ -105,7 +106,8 @@ const style = {
   return (
   <div style={style.ViewOfConv}>
     <Suspense fallback={<div>Comments are loading.</div>}>
-    <Comments data={listedElem}/>
+    <Comments data={listedElem}
+     loggedUser={loggedUser}/>
     </Suspense>
     <AddComment 
     changeFnc= {handleChange} 

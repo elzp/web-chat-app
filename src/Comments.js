@@ -1,75 +1,91 @@
 import React from 'react';
+import Comment from './Comment';
 
 const style = {
   commentsection:{background: "grey",
-  overflowY: "scroll",
-  //minWidth: "70%",
+  // overflowY: "scroll",
   width: "100%",
   height: "70vh",
+  overflowX: "hidden",
   },
-  userAndComment:{
-    display: "flex",
-    // "flex-direction": "column",
+}
+const loggedUser ={
+  userComment:{
+    display: "grid",
+    gridTemplateAreas: '"name comment" "name time"',
+    gridTemplateColumns: "auto 85%",
     borderRadius: "5%",
     border: "1px solid grey",
-    padding: "1em",
+    padding: ".2em",
+    width: "auto",
+    "margin-right": ".5em",
   },
-  user: {
-    background: "darkgrey",
-    borderRadius: "10%",
-    border: "1px solid darkgrey",
-    width: "20%",
-    height: "fit-content",
-    marginRight: "3px",
-    padding: "2px 2px",
-    textAlign: "left",
-
-
+  time: {
+    gridArea: "time",
+    fontSize: "0.6em",
+    color: "white", 
   },
-  said: {
-  fontSize: "0.6em",
-  width: "3em",
-  
-},
-  comment: {
-    background: "lightgrey",
+    comment: {
+      gridArea: "comment",
+      background: "lightgrey",
+      border: "1px solid grey",
+      width: "95%",
+      padding: "10px 10px",
+      height: "fit-content",
+      wordBreak: "break-all",
+      borderRadius: "10px",
+    },
+}
+const friendUser = {
+  userComment:{
+    display: "grid",
+    gridTemplateAreas: '"comment name" "time name "',
+    gridTemplateColumns: "85% auto",
+    borderRadius: "5%",
     border: "1px solid grey",
-    width: "80%",
-    padding: "2px 2px",
-    height: "fit-content",
-    wordBreak: "normal",
-    overflowX: "scroll",
-
-
+    padding: ".2em",
+    width: "auto",
+    marginLeft: ".5em",
   },
+  time: {
+    gridArea: "time",
+    fontSize: "0.6em",
+    color: "black", 
+  },
+    comment: {
+      gridArea: "comment",
+      background: "yellow",
+      border: "1px solid grey",
+      width: "95%",
+      padding: "10px 10px",
+      height: "fit-content",
+      wordBreak: "break-all",
+      borderRadius: "10px",
+    },
 
 }
 
 function Comments(props) {
-  // const g = "1234"
-  // cost gg= g.splice(0,2)
+ 
     const { data } = props;
     const formatedData = typeof data ==="string"? JSON.parse(data): data;
     const defalutDivForCommentSection = (<div>no one added comments</div>);
-    const commentsAfterAddingFirst =  ( 
+    const showListOfComments =  ( 
     <div>
         {formatedData?.map((it)=>(
-            <div style={style.userAndComment} key={JSON.stringify(it.time)} data-testid="li">
-              <div style={style.user} key={(it).username} data-testid="li-user">{it.username} </div>
-              <div style={style.said} key={it.said+"said"}>{it.time}</div>
-              <div style={style.comment} key={it.comment +'sth'} data-testid="li-comment">{it.comment}</div>
+            <div 
+            key={JSON.stringify(it.time)} data-testid="li">
+             {
+               props.loggedUser.id === it.id ? <Comment childStyle={loggedUser} oneComment={it}/> :
+               <Comment childStyle={friendUser} oneComment={it}/>
+             }
             </div> 
         ))}
-        {/* error after clicking button Add: 
-        index.js:1 Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function. */}
       </div> )
-    const showListOfComments = formatedData === [] ? defalutDivForCommentSection : commentsAfterAddingFirst;
     
     return(
         <div data-testid="Comments" style={style.commentsection}>
-      {/* typeof data? {typeof data}; 
-      formateddata type- {typeof formatedData} */}
-      {/* formateddata {JSON.stringify([... formatedData])} */}
+      {data === "[]" && defalutDivForCommentSection}
             {showListOfComments}
         </div>
  

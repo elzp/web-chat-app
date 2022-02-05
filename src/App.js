@@ -37,7 +37,7 @@ notValidUser={notValidUser}
 </div>
 ) : 
     (<div>
-    <h1 data-testid="welcome">Welcome to your chat.</h1>
+    <h1 data-testid="welcome">Welcome {loggedUser.name} to your chat.</h1>
     <button type="submit"
     onClick ={()=>{sessionStorage.setItem('name','');sessionStorage.setItem('id','-1');
     window.location.reload(false)}}
