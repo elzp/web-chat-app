@@ -64,3 +64,30 @@ app.get('/:id/conv', (req,res)=>{
 });
 
 app.listen(portOfServer,() =>{ console.log('server is listening on port' + portOfServer)});
+
+
+// //socket.io
+// //https://www.fullstacklabs.co/blog/chat-application-react-express-socket-io
+
+
+const app2 = require('express')();
+const http = require('http').createServer(app2);
+
+var io = require('socket.io')(http, {
+    cors: {
+        origin: `http://localhost:3006`,
+    }
+});
+const PORT = 8080;
+
+http.listen(PORT, () => {
+    console.log(`listening on *:${PORT}`);
+});
+
+io.on('connection', (socket) => { /* socket object may be used to send specific messages to the new connected client */
+
+    console.log('new client connected');
+    socket.emit('connection', null);
+
+});
+//  or https://www.section.io/engineering-education/creating-a-real-time-chat-app-with-react-socket-io-with-e2e-encryption/

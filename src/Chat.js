@@ -7,9 +7,10 @@ import './App.css';
 import {BrowserRouter, Route, Switch } from 'react-router-dom';
 import  friends from './friends.json';
 import React/*, {useState}*/ from 'react';
+import socketClient from 'socket.io-client';
 import {UsernameContext}  from './Contexts/contexts';
  
-
+const SERVER = "http://127.0.0.1:8080";
 const style = {
   Chatdiv:{
     background: "lightgrey",
@@ -19,7 +20,10 @@ const style = {
 }
 
 function Chat(props) {
-
+const socket = socketClient(SERVER);
+socket.on('connection', ()=>{
+  console.log(`I'm connected with backend for messages`);
+})
 const idLoggedUser = props.loggedUser.id;
   return (
   <div style={style.Chatdiv}>
