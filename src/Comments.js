@@ -18,7 +18,7 @@ const loggedUser ={
     border: "1px solid grey",
     padding: ".2em",
     width: "auto",
-    "margin-right": ".5em",
+    marginRight: ".5em",
   },
   time: {
     gridArea: "time",

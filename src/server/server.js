@@ -68,7 +68,26 @@ app.listen(portOfServer,() =>{ console.log('server is listening on port' + portO
 
 // //socket.io
 // //https://www.fullstacklabs.co/blog/chat-application-react-express-socket-io
-
+const conversationsData = [
+    {
+        id: "1-2",
+        sockets : [],
+        participants: 0,
+        messages: [""],
+    },
+    {
+        id: "1-4",
+        sockets : [],
+        participants: 0,
+        messages: [""],
+    },
+    {
+        id: "2-4",
+        sockets : [],
+        participants: 0,
+        messages: [""],
+    },
+    ];
 
 const app2 = require('express')();
 const http = require('http').createServer(app2);
@@ -85,9 +104,62 @@ http.listen(PORT, () => {
 });
 
 io.on('connection', (socket) => { /* socket object may be used to send specific messages to the new connected client */
+    
+        socket.emit('connection', null);
+        socket.on('channel-join', id => {
+            console.log('channel join', id);
+            conversationsData.forEach(c => {
+                if (c.id === id) {
+                    if (c.sockets.indexOf(socket.id) == (-1)) {
+                        c.sockets.push(socket.id);
+                        c.participants++;
+                        console.log("channel emited- participant added", c)
 
-    console.log('new client connected');
-    socket.emit('connection', null);
+                        io.emit('channel', c);
+                    }
+                } else {
+                    let index = c.sockets.indexOf(socket.id);
+                    if (index != (-1)) {
+                        c.sockets.splice(index, 1);
+                        c.participants--;
+                        console.log("channel emited- participant deleted")
 
-});
+                        io.emit('channel', c);
+                    }
+                }
+            });
+    
+            return id;
+        });
+        socket.on('send-message', message => {
+            console.log("message from 8080",message)
+            io.emit('message', message);
+        });
+    
+        socket.on('disconnect', () => {
+            conversationsData.forEach(c => {
+                let index = c.sockets.indexOf(socket.id);
+                if (index != (-1)) {
+                    c.sockets.splice(index, 1); //adding sockets
+                    c.participants--;
+                    console.log("channel disconnect")
+                    io.emit('channel', c);
+                }
+            });
+        });
+    
+    });
+    //send data obout socket conversations
+    app2.use(cors({
+    origin: `http://localhost:3006`,
+    //optionsSuccessStatus: 200
+    }));
+    app2.get('/getChannels', (req, res) => {
+        res.json(
+            conversationsData
+        )
+    });
 //  or https://www.section.io/engineering-education/creating-a-real-time-chat-app-with-react-socket-io-with-e2e-encryption/
+
+
+            
