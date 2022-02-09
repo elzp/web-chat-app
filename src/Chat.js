@@ -86,7 +86,7 @@ function Chat(props) {
       console.log("chanel",channel, "chanel in app after fetch", allConversations)
   });
 
-    socket.on('message', message => {
+    socket.on('message', async message => {
         console.log("message",message)
         let channels = allConversations;//this.state.channels
         channels.forEach(c => {
@@ -98,7 +98,14 @@ function Chat(props) {
                 }
             }
         });
+        // await axios.get('http://localhost:3001'+ `/${actualConv.id}/conv`)
+        //            .then(response=>{
+        //                 const dataFromResponse = response.data || "[]"
+        //                 console.log(typeof dataFromResponse)
+        //                 // return setlistedElem(dataFromResponse);
+        //               }) 
         setAllConversations(allConversations); //was: this.setState({ channels });
+
     });
     setActualsocket(socket);// this.socket = socket;
 }
@@ -115,7 +122,9 @@ function Chat(props) {
 // }
 
 const handleSendMessage = (arg) => {
-  socket.emit('send-message', arg);// { channel_id:conversationID, text: newcomment, senderName: props.loggedUser.name, id: actualDate}
+  socket.emit('send-message', arg);
+  //było { channel_id:conversationID, text: newcomment, senderName: props.loggedUser.name, id: actualDate}
+  // jest // { username (senderName): props.loggedUser.name, id: loggedUser.id, comment(text): newcomment, time(id): actualDate, channel_id: conversationID,}
   console.log('send message to backend')
 } // in ViewOfConv
 

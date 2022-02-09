@@ -20,7 +20,11 @@ const setActualConv = props.setActualConv;
 
 // const listoffriends = Object.values(friends).map(item=>(<div >{item.name}</div>))
 
-
+const messages =  props.allConversations === null | props.allConversations === undefined
+? []
+//   [{"channel_id":"1-2","text":"dw","senderName":"Lucas","id":"2022-02-06, 18:40:38"}]
+:props.allConversations.filter(it=>it.id===conversationID)[0].messages
+  
 
 const chandleButtonClick = async (e) => {
   e.preventDefault();
@@ -40,7 +44,16 @@ const chandleButtonClick = async (e) => {
     //   comment: newcomment,
     //   time: actualDate,
     // }
-    
+    const messageData = { 
+      // senderName: 
+      username: props.loggedUser.name,
+      id: loggedUser.id,
+      // text
+      comment: newcomment, 
+      // id: 
+      time: actualDate,
+      channel_id: conversationID,
+      };
     // const newdata = [ newComment,  ...JSON.parse(listedElem)]
     // setlistedElem(actual=>{
     //  // if(typeof actual === "string")  return [ newComment,  ...JSON.parse(actual)]
@@ -51,24 +64,29 @@ const chandleButtonClick = async (e) => {
   
   //  await  axios.post('http://localhost:3001'+nameOfFile,
   //     { 
-  //       messages: newdata
+  //       messages: [messageData]
   //     }
+
+  // //     { 
+  // //       messages: newdata
+  // //     }
   //     )
   //   .then(response=>console.log(response))
       //sending message to backend through socket
+    //   "username": "Lucas",
+    // "id": "1",
+    // "comment": "hh",
+    // "time": "2022-02-05, 17:08:13"
     // handleSendMessage() 
-    props.handleSendMessage({ 
-      channel_id:conversationID, 
-      text: newcomment, 
-      senderName: props.loggedUser.name, 
-      id: actualDate})
+    props.handleSendMessage(messageData)
     setNewoment("");
 
 
-  //   // await axios.get('http://localhost:3001'+ nameOfFile)
-  //   //  .then(response=>{
-  //   //    const dataFromResponse = response.data || "[]"
-  //   //    return setlistedElem(dataFromResponse);}) 
+    // await axios.get('http://localhost:3001'+ nameOfFile)
+    //  .then(response=>{
+    //    const dataFromResponse = response.data || "[]"
+       
+    //    return setlistedElem(dataFromResponse);}) 
 
 }
 
@@ -116,12 +134,13 @@ useEffect(()=>{
   setActualConv(prev=>{
     return {...prev, id: conversationID}})
 },[conversationID, setActualConv])
-// useEffect(()=>{setActualConv(preview => { ...preview } )})
 
   return (
   <div style={style.ViewOfConv}>
     <Suspense fallback={<div>Comments are loading.</div>}>
+   
     <Comments data={listedElem}
+     messages = {messages}
      loggedUser={loggedUser}/>
     </Suspense>
     <AddComment 
@@ -130,7 +149,10 @@ useEffect(()=>{
     newcomment={newcomment} 
     setlistedElem={setlistedElem}
     loggedUser={props.loggedUser.name} />
+ {JSON.stringify(loggedUser)}
     
+    {/* {messages}
+    messages{JSON.stringify(  messages)}; */}
     {/* listedElem type {typeof listedElem}; 
     listedElem - {listedElem} ; */}
   </div>

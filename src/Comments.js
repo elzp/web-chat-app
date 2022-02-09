@@ -5,7 +5,7 @@ const style = {
   commentsection:{background: "grey",
   // overflowY: "scroll",
   width: "100%",
-  height: "70vh",
+  height: "30vh",
   overflowX: "hidden",
   },
 }
@@ -83,10 +83,28 @@ function Comments(props) {
         ))}
       </div> )
     
+    const messages = props.messages.length <=1?(<><p>zero messages</p></>): props.messages.map((it, index)=>{
+      if (index = 0) {return;}
+      else {
+        const display = (
+        <>{props.loggedUser.id === it.id ? <Comment 
+          childStyle={loggedUser} 
+          oneComment={it} 
+          comment={it}/> :
+          <Comment 
+          childStyle={friendUser} 
+          oneComment={it}
+          comment={it}/>
+          }
+        </>
+        )
+      return display} 
+      })
     return(
         <div data-testid="Comments" style={style.commentsection}>
-      {data === "[]" && defalutDivForCommentSection}
-            {showListOfComments}
+      {/* {data === "[]" && defalutDivForCommentSection}
+            {showListOfComments} */}
+            {messages}
         </div>
  
     );
