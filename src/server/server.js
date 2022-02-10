@@ -73,19 +73,19 @@ const conversationsData = [
         id: "1-2",
         sockets : [],
         participants: 0,
-        messages: [""],
+        messages: [],
     },
     {
         id: "1-4",
         sockets : [],
         participants: 0,
-        messages: [""],
+        messages: [],
     },
     {
         id: "2-4",
         sockets : [],
         participants: 0,
-        messages: [""],
+        messages: [],
     },
     ];
 
