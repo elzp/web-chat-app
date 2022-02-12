@@ -1,1 +1,30 @@
-[{"username":"Lucas","comment":"hh","time":"2022-02-05, 17:08:13"},{"username":"Aga","id":"2","comment":"grt","time":"2022-02-05, 16:48:24"},{"username":"Aga","id":"2","comment":"tyyr","time":"2022-02-05, 16:48:08"},{"username":"Lucas","id":"1","comment":"gry","time":"2022-02-05, 16:47:50"}]
+[
+    {
+        "username": "Aga",
+        "id": "2",
+        "comment": "2-1 aga",
+        "time": "2022-02-12, 12:31:36",
+        "channel_id": "1-2"
+    },
+    {
+        "username": "Aga",
+        "id": "2",
+        "comment": "green",
+        "time": "2022-02-12, 12:33:23",
+        "channel_id": "1-2"
+    },
+    {
+        "username": "Lucas",
+        "id": "1",
+        "comment": "bluea",
+        "time": "2022-02-12, 12:38:17",
+        "channel_id": "1-2"
+    },
+    {
+        "username": "Aga",
+        "id": "2",
+        "comment": "red",
+        "time": "2022-02-12, 12:39:17",
+        "channel_id": "1-2"
+    }  
+]

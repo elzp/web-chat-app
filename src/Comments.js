@@ -83,11 +83,10 @@ function Comments(props) {
         ))}
       </div> )
     
-    const messages = props.messages.length <=1?(<><p>zero messages</p></>): props.messages.map((it, index)=>{
-      if (index = 0) {return;}
-      else {
-        const display = (
-        <>{props.loggedUser.id === it.id ? <Comment 
+    const messages = props.messages.length === 0 ?(<><p>zero messages</p></>): props.messages.map((it,index)=>
+      (
+        <div key={it.time+ it.id}>  
+          {props.loggedUser.id === it.id ? <Comment 
           childStyle={loggedUser} 
           oneComment={it} 
           comment={it}/> :
@@ -96,10 +95,9 @@ function Comments(props) {
           oneComment={it}
           comment={it}/>
           }
-        </>
+        </div>
         )
-      return display} 
-      })
+      )
     return(
         <div data-testid="Comments" style={style.commentsection}>
       {/* {data === "[]" && defalutDivForCommentSection}
