@@ -9,78 +9,42 @@ import React, {useState, useEffect, Suspense } from 'react'
 function ViewOfConv(props) {
 const username = props.username;
 const loggedUser = props.loggedUser;
-const nameOfFile = username.id < loggedUser.id ? `/${username.id}-${loggedUser.id}/conv` :
-                  `/${loggedUser.id}-${username.id}/conv` ;
+const conversationID = username.id < loggedUser.id ? `${username.id}-${loggedUser.id}` :
+`${loggedUser.id}-${username.id}`;
+const nameOfFile = `/${conversationID}/conv`;
 
 const [listedElem,  setlistedElem] = useState("[]");
-// const [listedElem2,  setlistedElem2] = useState([]);
 let [newcomment, setNewoment] = useState("");
+const setActualConv = props.setActualConv;
 
-// const listoffriends = Object.values(friends).map(item=>(<div >{item.name}</div>))
 
-
+const messages =  props.messages;
+  
 
 const chandleButtonClick = async (e) => {
   e.preventDefault();
-  if(
-    //username.name ==="" &
-     newcomment ==="") return;
-   // const newelement =+ listedElem.length;
-   // const newList = actualElem
+  if(newcomment ==="") return;
+
    const fullActualDate = new Date();
-   const actualDate = fullActualDate.getFullYear()+'-'+ fullActualDate.getMonth()+1 + '-' + 
-      fullActualDate.getDate() + ', '+ fullActualDate.getHours() +':' + fullActualDate.getMinutes() + ':' +
-      fullActualDate.getSeconds()
-    const newComment = {
-      username: props.loggedUser.name, 
-      id: props.loggedUser.id,
-      comment: newcomment,
+   const createTwonumberedData = (oneNumberedData) => `${oneNumberedData}`.length ===1? `0${oneNumberedData}`: `${oneNumberedData}`;
+   const actualDate = fullActualDate.getFullYear()+'-'+ createTwonumberedData(fullActualDate.getMonth()+1) + '-' + 
+   createTwonumberedData(fullActualDate.getDate()) + ', '+ createTwonumberedData(fullActualDate.getHours()) +':' +
+   createTwonumberedData(fullActualDate.getMinutes()) + ':' + createTwonumberedData(fullActualDate.getSeconds())
+
+    const messageData = { 
+      username: props.loggedUser.name,
+      id: loggedUser.id,
+      comment: newcomment, 
       time: actualDate,
-    }
-    
-    const newdata = [ newComment,  ...JSON.parse(listedElem)]
-    setlistedElem(actual=>{
-     // if(typeof actual === "string")  return [ newComment,  ...JSON.parse(actual)]
-     if(actual ===[]) return [newComment];
-      if(typeof actual ==="object" )  return JSON.stringify([newComment, ...JSON.parse(actual)])
-      
-    });
-  
-   await  axios.post('http://localhost:3001'+nameOfFile,
-      { 
-        messages: newdata
-      }
-      )
-    .then(response=>console.log(response))
+      channel_id: conversationID,
+      };
+ 
+    props.handleSendMessage(messageData)
     setNewoment("");
-
-
-    
-    // await axios.get('http://localhost:3001'+ nameOfFile)
-    //  .then(response=>{
-    //    const dataFromResponse = response.data || "[]"
-    //    return setlistedElem(dataFromResponse);}) 
 
 }
 
 
-useEffect(  () =>  {
-  axios.get('http://localhost:3001'+ nameOfFile)
-     .then(response=>{
-       const dataFromResponse = response.data || "[]"
-       return setlistedElem(dataFromResponse);}) 
-    
-},[nameOfFile]//gets from file saved conversations every time when list of messages is updated in app
-);
-
-useEffect(  () =>  {
-  axios.get('http://localhost:3001'+ nameOfFile)
-     .then(response=>{
-       const dataFromResponse = response.data || "[]"
-       return setlistedElem(dataFromResponse);}) 
-    
-},[listedElem, nameOfFile]//gets from file saved conversations every time when list of messages is updated in app
-);
 
 const handleChange = (e, type)=>{
   switch(type){
@@ -102,10 +66,18 @@ const style = {
       padding: "10px 0",
     },
   }
+//send to chat.js id of conversation
+useEffect(()=>{
+  setActualConv(prev=>{
+    return {...prev, id: conversationID}})
+},[conversationID, setActualConv])
+
   return (
   <div style={style.ViewOfConv}>
     <Suspense fallback={<div>Comments are loading.</div>}>
+   
     <Comments data={listedElem}
+     messages = {messages}
      loggedUser={loggedUser}/>
     </Suspense>
     <AddComment 
@@ -114,7 +86,10 @@ const style = {
     newcomment={newcomment} 
     setlistedElem={setlistedElem}
     loggedUser={props.loggedUser.name} />
+ {/* {JSON.stringify(loggedUser)} */}
     
+    {/* {messages}
+    messages{JSON.stringify(  messages)}; */}
     {/* listedElem type {typeof listedElem}; 
     listedElem - {listedElem} ; */}
   </div>

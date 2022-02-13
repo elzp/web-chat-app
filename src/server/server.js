@@ -15,10 +15,14 @@ const portOfServer = 3001;
 
 app.post('/:id/conv', (req,res)=>{
     console.log(req.params.id);
-    console.log(req.body.messages); //this is in JSON.stringify format
+    console.log("data to post", req.body.messages); //this is in JSON.stringify format
 
-    fs.writeFile(req.params.id+'.json', JSON.stringify(req.body.messages),  (err)=>{ if(err) {console.log('error on '+FileName);
-console.log(err);}else{console.log(req.body.messages)}})
+    fs.writeFile(req.params.id+'.json', JSON.stringify(req.body.messages),  (err)=>{ 
+        if(err) {
+            console.log('error on '+FileName, " with posting data on", portOfServer);
+            console.log(err);
+        }else{
+            console.log("on port ", portOfServer, " posted:",req.body.messages)}})
     res.status(200).send(req.body.messages)
     
 });
@@ -40,10 +44,10 @@ app.post('/newuser', async (req, res)=>{
 
     fs.writeFile(fileDirectory, JSON.stringify(dataToSaveInFile),  (err)=>{ 
         if(err) {
-            console.log('error on '+fileDirectory);
+            console.log('error on '+fileDirectory, 'with saving user on ', portOfServer);
             console.log(err);
         }else{
-            console.log("saved in file")
+            console.log("saved in file on port ", portOfServer)
             res.status(200).json("saved")
         }
     })
@@ -53,14 +57,131 @@ app.post('/newuser', async (req, res)=>{
 app.get('/:id/conv', (req,res)=>{
     
     const FileName = req.params.id;
-    try{fs.readFile(FileName+'.json', 'utf8', (err,data)=>{ 
+
+    const readsFileAsync = async (FileName) => {
+        fs.readFile(FileName+'.json', 'utf8', (err,data)=>{ 
         if(err) {
-            console.log('error on '+FileName)
+            console.log('Error on '+FileName, 'with getting data on port', portOfServer)
        
         }else{
+            console.log('data was send on port', portOfServer,":", data)
             res.status(200).json(data)
-            console.log('send')}})
-        }catch{res.status(200).json("[]")}
+            }})
+        }
+        // console.log("is ", FileName, " file exists?", fs.existsSync(FileName+'.json'), FileName !=="0-0",
+        // fs.existsSync(FileName+'.json') && FileName !=="0-0")
+    
+    
+    // in case if file not exist, check it and mage new file
+    if(fs.existsSync(FileName+'.json')){
+        try{ 
+            readsFileAsync(FileName); 
+        }catch{ err=>{
+            console("error on ", portOfServer, " when reading data from existing file")}
+            // res.status(200).json("[]");
+        }
+    }else{
+        console.log("is ",FileName, "exists",  fs.existsSync(FileName+'.json'))
+        fs.writeFileSync(FileName+'.json','[]', 'utf8');
+            readsFileAsync(FileName);
+    }
 });
 
 app.listen(portOfServer,() =>{ console.log('server is listening on port' + portOfServer)});
+
+
+// //socket.io
+// //https://www.fullstacklabs.co/blog/chat-application-react-express-socket-io
+const conversationsData = [
+    {
+        id: "1-2",
+        sockets : [],
+        participants: 0,
+    },
+    {
+        id: "1-4",
+        sockets : [],
+        participants: 0,
+    },
+    {
+        id: "2-4",
+        sockets : [],
+        participants: 0,
+    },
+    ];
+
+const app2 = require('express')();
+const http = require('http').createServer(app2);
+
+var io = require('socket.io')(http, {
+    cors: {
+        origin: `http://localhost:3006`,
+    }
+});
+const PORT = 8080;
+
+http.listen(PORT, () => {
+    console.log(`listening on *:${PORT}`);
+});
+
+io.on('connection', (socket) => { /* socket object may be used to send specific messages to the new connected client */
+    
+        socket.emit('connection', null);
+        socket.on('channel-join', id => {
+            console.log('channel join', id, "on port ", PORT);
+            conversationsData.forEach(c => {
+                if (c.id === id) {
+                    if (c.sockets.indexOf(socket.id) == (-1)) {
+                        c.sockets.push(socket.id);
+                        c.participants++;
+                        console.log("channel emited- participant added", c, "on port ", PORT)
+
+                        io.emit('channel', c);
+                    }
+                } else {
+                    let index = c.sockets.indexOf(socket.id);
+                    if (index != (-1)) {
+                        c.sockets.splice(index, 1);
+                        c.participants--;
+                        console.log("channel emited- participant deleted", "on port ", PORT)
+
+                        io.emit('channel', c);
+                    }
+                }
+            });
+    
+            return id;
+        });
+        socket.on('send-message', message => {
+            console.log("message from 8080",message)
+            io.emit('message', message);
+        });
+    
+        socket.on('disconnect', () => {
+            conversationsData.forEach(c => {
+                let index = c.sockets.indexOf(socket.id);
+                if (index != (-1)) {
+                   c.sockets.splice(index, 1); //adding sockets
+                    c.participants--;
+                    console.log("channel disconnect", "on port ", PORT)
+                    // io.emit('disconnect', "channel disconnect")
+                    io.emit('channel', c);
+                }
+            });
+        });
+    
+    });
+    //send data obout socket conversations
+    app2.use(cors({
+    origin: `http://localhost:3006`,
+    //optionsSuccessStatus: 200
+    }));
+    app2.get('/getChannels', (req, res) => {
+        res.json(
+            conversationsData
+        )
+    });
+//  or https://www.section.io/engineering-education/creating-a-real-time-chat-app-with-react-socket-io-with-e2e-encryption/
+
+
+            

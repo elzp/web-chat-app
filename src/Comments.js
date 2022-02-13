@@ -5,7 +5,7 @@ const style = {
   commentsection:{background: "grey",
   // overflowY: "scroll",
   width: "100%",
-  height: "70vh",
+  height: "30vh",
   overflowX: "hidden",
   },
 }
@@ -18,7 +18,7 @@ const loggedUser ={
     border: "1px solid grey",
     padding: ".2em",
     width: "auto",
-    "margin-right": ".5em",
+    marginRight: ".5em",
   },
   time: {
     gridArea: "time",
@@ -83,10 +83,26 @@ function Comments(props) {
         ))}
       </div> )
     
+    const messages = props.messages.length === 0 ?(<><p>zero messages</p></>): props.messages.map((it,index)=>
+      (
+        <div key={it.time+ it.id}>  
+          {props.loggedUser.id === it.id ? <Comment 
+          childStyle={loggedUser} 
+          oneComment={it} 
+          comment={it}/> :
+          <Comment 
+          childStyle={friendUser} 
+          oneComment={it}
+          comment={it}/>
+          }
+        </div>
+        )
+      )
     return(
         <div data-testid="Comments" style={style.commentsection}>
-      {data === "[]" && defalutDivForCommentSection}
-            {showListOfComments}
+      {/* {data === "[]" && defalutDivForCommentSection}
+            {showListOfComments} */}
+            {messages}
         </div>
  
     );
