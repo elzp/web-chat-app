@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useEffect, useRef } from 'react';
 import Comment from './Comment';
 
 const style = {
@@ -98,11 +98,29 @@ function Comments(props) {
         </div>
         )
       )
+
+      let messagesEnd = useRef();
+      const scrollToBottom = () => {
+        messagesEnd.current.scrollIntoView();
+        // { behavior: "smooth" }
+      };
+
+      useEffect(()=>{ 
+        console.log("useeffect")
+        scrollToBottom();
+      }, [messages]);
+
     return(
         <div data-testid="Comments" style={style.commentsection}>
       {/* {data === "[]" && defalutDivForCommentSection}
             {showListOfComments} */}
             {messages}
+            {/* https://stackoverflow.com/questions/37620694/how-to-scroll-to-bottom-in-react */
+            <div 
+              style={{ float:"left", clear: "both" }}
+              ref={messagesEnd}>
+            </div>
+            }
         </div>
  
     );
