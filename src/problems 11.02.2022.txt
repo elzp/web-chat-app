@@ -1,0 +1,4 @@
+Add error message when there is no connection with server. 
+in user who sends message, message is displayed two times - fixed!
+
+After disconnecting one person from conversation in window of another person in conversation messages dissapeares. Also data in files with messages is updated as empty. - fixed!
