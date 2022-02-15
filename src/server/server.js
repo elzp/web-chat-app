@@ -12,7 +12,39 @@ app.use(cors({
 }));
 app.use(express.json()); //to read Json body of requesta
 const portOfServer = 3001;
-
+app.post('/add-friend/:id', (req,res)=>{
+    //get user id
+    console.log(req.params.id);
+    //get data to add friend
+    const fileDirectory = __dirname+'/../friends.json';
+    const actualListOfFriendsFromDB= fs.readFileSync(fileDirectory, 'utf8');
+    //get data form database
+    console.log("data to post", req.body.friendId); //this is in JSON.stringify format
+    // prepare data
+    const dataBeforeAddingFriend = JSON.parse(actualListOfFriendsFromDB);
+    const userdataBeforeAddingFriend = dataBeforeAddingFriend[req.params.id];
+    const newConversation = Number(req.params.id)<Number(req.body.friendId)? `${req.params.id}-${req.body.friendId}`:
+        `${req.body.friendId}-${req.params.id}`;
+    const userdataAfterAddingFriend = {...userdataBeforeAddingFriend};
+    userdataAfterAddingFriend.friends.push(Number(req.body.friendId));
+    userdataAfterAddingFriend.conversations.push(newConversation);
+    //     friends: [...userdataBeforeAddingFriend.friends, req.body.friendId],
+    //     conversation: [...userdataBeforeAddingFriend.conversation, newConversation]}
+    dataBeforeAddingFriend[req.params.id] = userdataAfterAddingFriend
+    console.log("userdataBeforeAddingFriend", userdataBeforeAddingFriend, "userdataAfterAddingFriend",
+    userdataAfterAddingFriend,
+    'databefore adding', dataBeforeAddingFriend
+        // dataAfterAddingFriend
+        )
+    fs.writeFile(fileDirectory, JSON.stringify(dataBeforeAddingFriend),  (err)=>{ 
+        if(err) {
+            console.log('error on '+FileName, " with adding new friend on", portOfServer);
+            console.log(err);
+        }else{
+            console.log("on port ", portOfServer, " posted:",req.body.messages)}})
+    // res.status(200).send(req.body.messages)
+    res.status(200).json("added")    
+});
 app.post('/:id/conv', (req,res)=>{
     console.log(req.params.id);
     console.log("data to post", req.body.messages); //this is in JSON.stringify format
@@ -22,8 +54,11 @@ app.post('/:id/conv', (req,res)=>{
             console.log('error on '+FileName, " with posting data on", portOfServer);
             console.log(err);
         }else{
-            console.log("on port ", portOfServer, " posted:",req.body.messages)}})
-    res.status(200).send(req.body.messages)
+            console.log("on port ", portOfServer, " added friend ",req.body.friendId, ' for ', 
+            req.params.id)
+        }
+    })
+    res.status(200).send("added")
     
 });
 
