@@ -1,6 +1,7 @@
 
 import ListOfFriends from './ListOfFriends';
 import ViewOfConv from './ViewOfConv';
+import FindFriends from "./FindFriends";
 import './App.css';
 import axios from 'axios';
 import {BrowserRouter, Route, Switch, useLocation } from 'react-router-dom';
@@ -151,6 +152,9 @@ const idLoggedUser = props.loggedUser.id;
   return (
   <div style={style.Chatdiv}>
     <ListOfFriends loggedUser={props.loggedUser}/>
+    <FindFriends 
+    loggedUser={props.loggedUser}
+    />
     <UsernameContext.Consumer>
     {user=>(
     <div>
