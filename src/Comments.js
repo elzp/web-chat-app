@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useEffect, useRef, useMemo } from 'react';
 import Comment from './Comment';
 
 const style = {
@@ -83,7 +83,11 @@ function Comments(props) {
         ))}
       </div> )
     
-    const messages = props.messages.length === 0 ?(<><p>zero messages</p></>): props.messages.map((it,index)=>
+    const messages = useMemo(()=>{
+      if(props.messages.length === 0) {
+        return (<><p>zero messages</p></>);
+      } else {
+      return props.messages.map((it,index)=>
       (
         <div key={it.time+ it.id}>  
           {props.loggedUser.id === it.id ? <Comment 
@@ -97,7 +101,9 @@ function Comments(props) {
           }
         </div>
         )
-      )
+      )}
+    }, [props.messages, props.loggedUser.id]
+    )
 
       let messagesEnd = useRef();
       const scrollToBottom = () => {
