@@ -18,6 +18,10 @@ const style = {
   error:{
     color:"red",
   },
+  LogIn: {
+    margin: " 0 auto",
+    width: "min-content",
+  }, 
 
 }
 
@@ -60,7 +64,7 @@ function LogIn(props) {
       }
 
     return(
-        <div data-testid="LogIn" style={style.friends}>
+        <div data-testid="LogIn" style={style.LogIn}>
             {/* cos {JSON.stringify(checkUser("Lucass", "luc"))}
             cos2 {JSON.stringify(checkUser("Lucas", "Lucas"))}
             cos3 {JSON.stringify(checkUser("Aga", "Aga"))}
@@ -98,7 +102,7 @@ function LogIn(props) {
             onChange={(e)=>{setPassword(e.target.value)}}
             />
         </div>
-        <div>
+        <div style={props.buttonDiv}>
             <button 
             type="submit" 
             onClick = {logOnSubmit}>log</button>
