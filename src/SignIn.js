@@ -19,7 +19,10 @@ const style = {
   error:{
     color:"red",
   },
-
+  SignIn: {
+    margin: " 0 auto",
+    width: "min-content",
+  }, 
 }
 
 //
@@ -155,7 +158,7 @@ function SignIn(props) {
       }
 
     return(
-        <div data-testid="LogIn" style={style.friends}>
+        <div data-testid="SignIn" style={style.SignIn}>
 
         <div
         style={style.labelAndInputDiv}
@@ -271,9 +274,13 @@ function SignIn(props) {
               </div>
             ))}
 
+          <div
+          style={props.buttonDiv}
+          >
             <button 
             type="submit" 
             onClick = {()=>logOnSubmit()}>sign up</button>
+          </div>
         </div>
         </div>
  
