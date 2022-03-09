@@ -1,6 +1,7 @@
 
 import ListOfFriends from './ListOfFriends';
 import ViewOfConv from './ViewOfConv';
+import FindFriends from "./FindFriends";
 import './App.css';
 import axios from 'axios';
 import {BrowserRouter, Route, Switch, useLocation } from 'react-router-dom';
@@ -39,8 +40,8 @@ function Chat(props) {
        //set messages from database
        console.log("dataFromResponse", typeof dataFromResponse, dataFromResponse)
 
-      if(dataFromResponse.length !== 0) { 
-        //not needed saving to messages state if data in DB is empty ([])
+      if(dataFromResponse.length !== 0 & actualConv.messages.length === 0) { 
+        //not needed saving to messages state if data in DB is empty ([]) 
         if(dataFromResponse.length == 1) { 
           //if in DB is one message then save it in state in app
           await setActualConv(prev=> {return {...prev, messages:[...prev.messages, dataFromResponse]}});
@@ -151,6 +152,9 @@ const idLoggedUser = props.loggedUser.id;
   return (
   <div style={style.Chatdiv}>
     <ListOfFriends loggedUser={props.loggedUser}/>
+    <FindFriends 
+    loggedUser={props.loggedUser}
+    />
     <UsernameContext.Consumer>
     {user=>(
     <div>
