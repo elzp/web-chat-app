@@ -7,44 +7,45 @@ import './App.css';
 import {useState} from 'react'; 
 import  friends from './friends.json';
 
-const style = {
-  Appdiv: Number(sessionStorage.getItem('id')) < 1 ? {
-    background: "white",
-    margin: "10vw auto auto",
-    height: "270px",
-    width: "400px",
-    border: "1px solid black",
-    borderRadius: "5px",
-  }: {
-    background: "lightgrey",
-    margin: "10vw auto auto",
-    height: "auto",
-    width: "auto",
-    border: "none",
-    borderRadius: "none",
-  },
-  div :{
-    display: "grid",
-  gridAutoFlow: "column",
-  },
-  outputDiv: {
-    height: "auto",
-    padding: "10px",
-    minWidth: "90%",
-    margin: "0 auto",
-  },
-  h1: {
-    textAlign: "center",
-    margin: "5px",
-  },
-  buttonDiv: {
-    margin: " 10px auto",
-    textAlign: "center",
-  }
-}
+
 
 
 function App() {
+  const style = {
+    Appdiv: Number(sessionStorage.getItem('id')) < 1 ? {
+      background: "white",
+      margin: "10vw auto auto",
+      height: "270px",
+      width: "400px",
+      border: "1px solid black",
+      borderRadius: "5px",
+    }: {
+      background: "lightgrey",
+      margin: "10vw auto auto",
+      height: "auto",
+      width: "auto",
+      border: "none",
+      borderRadius: "none",
+    },
+    div :{
+      display: "grid",
+    gridAutoFlow: "column",
+    },
+    outputDiv: {
+      height: "auto",
+      padding: "10px",
+      minWidth: "90%",
+      margin: "0 auto",
+    },
+    h1: {
+      textAlign: "center",
+      margin: "5px",
+    },
+    buttonDiv: {
+      margin: " 10px auto",
+      textAlign: "center",
+    }
+  }
   const notValidUser = {name: sessionStorage.getItem('name')|| "", id: sessionStorage.getItem('id')|| "-1"}
 
 const [loggedUser, setLoggedUser] = useState(notValidUser);
