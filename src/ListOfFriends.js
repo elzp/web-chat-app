@@ -38,18 +38,10 @@ function ListOfFriends(props) {
    const idOfActualFriend = /(?<=-)([\d]+)/.test(pathname)? Number(pathname.match(/(?<=-)([\d]+)/)[0]) :
    0; 
   const dataforuser = Object.entries(friend);  
-  const numbersOfFriends = dataforuser
-    .filter(it=>it[1].name ===props.loggedUser.name)[0][1]
-    ["friends"]
+  const numbersOfFriends =friend[props.loggedUser.id].friends;
     
-    const namesoffiends = numbersOfFriends
-    .map(it=>
-      dataforuser[it-1][1]["name"]
-      )
-    const urlsoffiends = dataforuser
-    .filter(it=>it[1].name ===props.loggedUser.name)[0][1]
-    ["conversations"]
-     const combo =  namesoffiends.map((it, index)=>[it,numbersOfFriends[index], urlsoffiends[index]]);
+    const dataOfFriends = numbersOfFriends.map(it=> {return {name: friend[it].name, id: it};});
+    
      const idLoggedUser = props.loggedUser.id;
      
     return(
@@ -59,24 +51,25 @@ function ListOfFriends(props) {
           style={style.allFriends}
           >
           {
-          combo
+          dataOfFriends
           .map(item=>(
-            <div key={`/${idLoggedUser}-${item[1]}`} 
+            <div key={`/${idLoggedUser}-${item.id}`} 
             style={style.Link}>
-              <Link to={`/${idLoggedUser}-${item[1]}`}>
-              {item[1] === idOfActualFriend?
+
+              <Link to={`/${idLoggedUser}-${item.id}`}>
+              {item.id === idOfActualFriend?
               (<div
               id="link"
               style={style.actualFriendDiv}
               > 
-              {item[0]}
+              {item.name}
               </div>)
               :
               (<div
               id="link"
               style={style.individualFriendDiv}
               > 
-              {item[0]}
+              {item.name}
               </div>
               )}
               </Link>

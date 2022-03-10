@@ -9,6 +9,7 @@ import  friends from './friends.json';
 
 
 
+
 function App() {
   const style = {
     Appdiv: Number(sessionStorage.getItem('id')) < 1 ? {
