@@ -28,7 +28,10 @@ buttonDiv:{
 },
 button: {
   width: "2em",
-}
+},
+label: {
+  margin: "0 10px",
+},
 }
 
 //
@@ -83,8 +86,8 @@ function FindFriends(props) {
     }
     return(
         <div data-testid="FindFriends" style={style.friends}>
-          <label htmlFor="searchinput">
-              search new friend.
+          <label htmlFor="searchinput" style={style.label}>
+              search new friend:
             </label>
             <input 
             id="for"

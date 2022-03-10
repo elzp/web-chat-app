@@ -63,7 +63,9 @@ const style = {
     ViewOfConv:{
       background: "lightgrey",
       //height: "100%",
-      padding: "10px 0",
+      padding: "10px auto",
+      // width: "90%",
+      textAlign: "center",
     },
   }
 //send to chat.js id of conversation

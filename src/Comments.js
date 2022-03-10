@@ -4,9 +4,13 @@ import Comment from './Comment';
 const style = {
   commentsection:{background: "grey",
   // overflowY: "scroll",
-  width: "100%",
+  // width: "100%",
+  margin: "5px auto",
   height: "30vh",
   overflowX: "hidden",
+  borderRadius: "5px",
+  padding: "5px",
+  textAlign: "left",
   },
 }
 const loggedUser ={

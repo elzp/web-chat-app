@@ -160,7 +160,7 @@ const handleSendMessage =async  (arg) => {
 
 const idLoggedUser = props.loggedUser.id;
   return (
-  <div style={style.Chatdiv}>
+  <div id="chatDiv" style={style.Chatdiv}>
     <ListOfFriends loggedUser={props.loggedUser}/>
     <FindFriends 
     loggedUser={props.loggedUser}
