@@ -4,6 +4,11 @@ import './App.css';
 import  friend from './friends.json';
 
 const style = {
+  ListOfFriends: {
+    border: "1px solid grey",
+    padding: "10px",
+    margin: "15px",
+    },
   allFriends:{
     marginTop: "2px",
     display: "flex",
@@ -45,7 +50,8 @@ function ListOfFriends(props) {
      const idLoggedUser = props.loggedUser.id;
      
     return(
-        <div data-testid="ListOfFriends" >
+        <div data-testid="ListOfFriends" 
+        style={style.ListOfFriends}>
           <div data-testid="choose">Choose with who you'd like to chat :)</div>
           <div
           style={style.allFriends}

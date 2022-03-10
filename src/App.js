@@ -19,6 +19,7 @@ function App() {
       width: "400px",
       border: "1px solid black",
       borderRadius: "5px",
+      position: "relative",
     }: {
       background: "lightgrey",
       margin: "10vw auto auto",
@@ -34,16 +35,26 @@ function App() {
     outputDiv: {
       height: "auto",
       padding: "10px",
-      minWidth: "90%",
+      minWidth: "70%",
       margin: "0 auto",
+      textAlign: "center",
     },
     h1: {
       textAlign: "center",
       margin: "5px",
     },
+    welcomeDiv: {
+      margin: "0 auto",
+    },
     buttonDiv: {
       margin: " 10px auto",
       textAlign: "center",
+    },
+    logoutButton: {
+      display: "inline-block",
+      position: "relative",
+      top: "10%",
+      left: "-30%",
     }
   }
   const notValidUser = {name: sessionStorage.getItem('name')|| "", id: sessionStorage.getItem('id')|| "-1"}
@@ -78,6 +89,7 @@ const loginDiv = (
     (<>
     <h1 data-testid="welcome">Welcome {loggedUser.name} to your chat.</h1>
     <button type="submit"
+    style={style.logoutButton}
     onClick ={()=>{sessionStorage.setItem('name','');sessionStorage.setItem('id','-1');
     window.location.reload(false)}}
     >
