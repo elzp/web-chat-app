@@ -30,7 +30,7 @@ function Chat(props) {
   
 
   const loadChannels = async () => {
-    if(actualConv.id == "0-0"){
+    if(actualConv.id === "0-0"){
 
     }else{
       //if channel isnt default get messages from DB
@@ -42,7 +42,7 @@ function Chat(props) {
 
       if(dataFromResponse.length !== 0 & actualConv.messages.length === 0) { 
         //not needed saving to messages state if data in DB is empty ([]) 
-        if(dataFromResponse.length == 1) { 
+        if(dataFromResponse.length === 1) { 
           //if in DB is one message then save it in state in app
           await setActualConv(prev=> {return {...prev, messages:[...prev.messages, dataFromResponse]}});
              
@@ -58,17 +58,23 @@ function Chat(props) {
   let socket = socketClient(SERVER);
   const [actualsocket, setActualsocket] = useState(socket);
 
-  useEffect(async () => {
+  useEffect(() => {
       console.log("loading past messages")
-      await loadChannels(); 
+      async function load() {
+        await loadChannels(); 
+      }
+      load();
   }, [actualConv.id]);
 
   const firstUpdate = useRef(true);
-  useEffect(async () => { 
+  useEffect( () => { 
     if(actualConv.id!=="0-0") {
+      async function configure() {
+        configureSocket();
+      }
       if(firstUpdate.current){//if it's first rendering 
 
-      configureSocket();
+        configure();
       firstUpdate.current = false; // and set firstUpdate=false to not first :)
       return;
       }
@@ -123,15 +129,19 @@ function Chat(props) {
     setActualsocket(socket);
 }
 
-useEffect(async ()=> {//post if messages changed
+useEffect(()=> {//post if messages changed
   // console.log("is actual messages  empty", actualConv.messages.length === 0, actualConv.messages)
-    if(actualConv.messages.length !== 0 //& 
-      ){
+  
+    async function postConv(){
       await  axios.post('http://localhost:3001/'+ actualConv.id + '/conv',
         { 
           messages: actualConv.messages
          }
          ).then(response=>console.log("posted in DB", response))
+    };
+    if(actualConv.messages.length !== 0 //& 
+         ){
+          postConv(); 
     }
   }
 )
