@@ -42,11 +42,12 @@ function Chat(props) {
 
       if(dataFromResponse.length !== 0 || actualConv.messages.length === 0) { 
         //not needed saving to messages state if data in DB is empty ([]) 
-        if(dataFromResponse.length === 1) { 
-          //if in DB is one message then save it in state in app
-          await setActualConv(prev=> {return {...prev, messages:[...prev.messages, dataFromResponse]}});
+        // if(dataFromResponse.length === 1) { 
+        //   //if in DB is one message then save it in state in app
+        //   await setActualConv(prev=> {return {...prev, messages:[...prev.messages, dataFromResponse]}});
              
-         }else{
+        //  }else
+         {
           await setActualConv(prev=> {return {...prev, messages:[...prev.messages, ...dataFromResponse]}}); 
         }
       console.log("messages in actualConv after fetching", actualConv.messages)
