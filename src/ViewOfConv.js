@@ -87,6 +87,7 @@ useEffect(()=>{
     buttonClickFnc= {chandleButtonClick}  
     newcomment={newcomment} 
     setlistedElem={setlistedElem}
+    isSocketConnected = {props.isSocketConnected}
     loggedUser={props.loggedUser.name} />
  {/* {JSON.stringify(loggedUser)} */}
     

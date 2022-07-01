@@ -27,7 +27,7 @@ function Chat(props) {
     messages: [],
   })
 
-  
+  const [isConnectionWithSocketServer, SetIsConnectionWithSocketServer] = useState(false);
 
   const loadChannels = async () => {
     if(actualConv.id === "0-0"){
@@ -53,6 +53,7 @@ function Chat(props) {
       }
            
      }) 
+     .catch()
     } 
   }
   let socket = socketClient(SERVER);
@@ -80,9 +81,14 @@ function Chat(props) {
       }
     }
   }, [actualConv.id]);
-
+  
   const configureSocket = () => {
+    socket.on("connect_error", (err) => {
+      console.log(`connect_error due to ${err.message}`);
+      SetIsConnectionWithSocketServer(false)
+    });
     socket.on('connection', () => {
+      SetIsConnectionWithSocketServer(true)
       console.log("connection is on", actualConv.id)
         if (actualConv.id!=="") {
             socket.emit('channel-join', actualConv.id, ack => {});
@@ -138,6 +144,7 @@ useEffect(()=> {//post if messages changed
           messages: actualConv.messages
          }
          ).then(response=>console.log("posted in DB", response))
+         .catch()
     };
     if(actualConv.messages.length !== 0 //& 
          ){
@@ -165,6 +172,8 @@ const idLoggedUser = props.loggedUser.id;
     <FindFriends 
     loggedUser={props.loggedUser}
     />
+    
+
     <UsernameContext.Consumer>
     {user=>(
     <div>
@@ -180,7 +189,9 @@ const idLoggedUser = props.loggedUser.id;
                 setActualConv = {setActualConv}
                 actualsocket={actualsocket}
                 handleSendMessage={handleSendMessage}
-                loggedUser={props.loggedUser}/>
+                loggedUser={props.loggedUser}
+                isSocketConnected = {isConnectionWithSocketServer}/>
+                
                 </Route>
               )
           return conversationBox;

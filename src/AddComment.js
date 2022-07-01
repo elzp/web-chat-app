@@ -11,7 +11,9 @@ const inputStyle = {
    width: "100%",//width: `calc(20% -2*${marginLeft} )`,
 }
 
-function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlistedElem }) {
+function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlistedElem, 
+    isSocketConnected 
+}) {
     const style={
         input: inputStyle,
         textarea:{
@@ -47,19 +49,28 @@ function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlisted
     }
     const placeholders = {comment: 'Add your comment',
     user: 'username for non registered user:'};
-
-    const [addCommentError, setAddCommentError] = useState("");
+    const textOfErrors = {
+        empty:"add text to comment", lostConnection: "server is disconnected"
+    }
+    const [addCommentError, setAddCommentError] = useState({empty:"", lostConnection: ""});
     const [errorIsVisible, setErrorIsVisible] = useState(false);
 
     const handleclick = (e)=>{
         if(
         newcomment===""){
             setErrorIsVisible(true);
-            setAddCommentError("add text to comment");
-            return;}
-
+            setAddCommentError(current=> ({...current,empty: textOfErrors.empty}));
+            return;} else {
+            setAddCommentError(current=>({ ...current, empty: ""}));
+            } 
+            
+        if(isSocketConnected){
+            setAddCommentError(current=>({ ...current, lostConnection: ""}));    
              buttonClickFnc(e);
-
+        } else {
+            setErrorIsVisible(true);
+            setAddCommentError(current =>  ({  ...current, lostConnection: textOfErrors.lostConnection}));    
+        }
         
         }
 
@@ -93,7 +104,9 @@ function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlisted
         {errorIsVisible && 
         <div data-testid="addcomment-error"
         style={style.error}
-        >{addCommentError}</div>
+        >{Object.entries(addCommentError).map(err=>(<p>{err[1]}</p>))}
+        
+        </div>
         }
         
         </div> 
