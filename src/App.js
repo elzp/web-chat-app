@@ -5,6 +5,7 @@ import SignIn from './SignIn';
 import BigButton from './BigButton';
 import './App.css';
 import {useState} from 'react'; 
+import {Link} from 'react-router-dom';
 import  friends from './friends.json';
 
 
@@ -88,6 +89,7 @@ const loginDiv = (
    const output = loggedUser.id <1 ? logOrSignDiv[0] : 
     (<>
     <h1 data-testid="welcome">Welcome {loggedUser.name} to your chat.</h1>
+    <Link to="/">
     <button type="submit"
     style={style.logoutButton}
     onClick ={()=>{sessionStorage.setItem('name','');sessionStorage.setItem('id','-1');
@@ -95,6 +97,7 @@ const loginDiv = (
     >
       Logout
     </button>
+    </Link>
     <Chat loggedUser={loggedUser}/> 
     </>);
 
