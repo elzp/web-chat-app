@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 const buttonColor="black";
 const marginLeft ="5px";
 const inputStyle = {
@@ -55,6 +55,23 @@ function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlisted
     const [addCommentError, setAddCommentError] = useState({empty:"", lostConnection: ""});
     const [errorIsVisible, setErrorIsVisible] = useState(false);
 
+
+    const closeErrorDiv = ()=>{
+        let isCommentsEmpty = [];
+        for (const item in addCommentError){
+            console.log(addCommentError[item])
+            isCommentsEmpty.push(addCommentError[item] === "")
+        }
+        console.log("closed", isCommentsEmpty)
+        if(isCommentsEmpty.every(it=>true === it)){
+            setErrorIsVisible(false); 
+        }
+    }
+
+    useEffect(()=>{
+        closeErrorDiv();
+    }, [addCommentError]);
+
     const handleclick = (e)=>{
         if(
         newcomment===""){
@@ -65,13 +82,14 @@ function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlisted
             } 
             
         if(isSocketConnected){
-            setAddCommentError(current=>({ ...current, lostConnection: ""}));    
+            setAddCommentError(current=>({ ...current, lostConnection: ""}));  
              buttonClickFnc(e);
         } else {
             setErrorIsVisible(true);
             setAddCommentError(current =>  ({  ...current, lostConnection: textOfErrors.lostConnection}));    
         }
         
+
         }
 
         // useEffect(()=>{
@@ -84,7 +102,6 @@ function AddComment({changeFnc, buttonClickFnc, newcomment, loggedUser,setlisted
         style={style.AddComment}>
 
     <div>
-
         {/* Hello {loggedUser} */}
         <textarea 
         style={style.textarea}
