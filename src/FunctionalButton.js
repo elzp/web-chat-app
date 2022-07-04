@@ -1,11 +1,11 @@
 import React from 'react';
-
+import {functionalButton} from './functionalButton.style'
 function FunctionalButton({buttonStyle, callbackFunction, textValue}) {
 
     return(
       <>
       <button type="submit"
-      style={buttonStyle}
+      style={buttonStyle ?? functionalButton}
       onClick ={()=>{callbackFunction();
       window.location.reload(false)}}
       >
