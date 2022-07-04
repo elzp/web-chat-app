@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import axios from 'axios';
+import FunctionalButton from './FunctionalButton';
 import  friends from './friends.json';
 
 const style = {
@@ -274,12 +275,12 @@ function SignIn(props) {
               </div>
             ))}
 
-          <div
-          style={props.buttonDiv}
-          >
-            <button 
-            type="submit" 
-            onClick = {()=>logOnSubmit()}>sign up</button>
+          <div>
+            <FunctionalButton 
+              buttonStyle = {props.buttonDiv}
+              callbackFunction = {logOnSubmit}
+              textValue = {"Sign up"}
+            />
           </div>
         </div>
         </div>

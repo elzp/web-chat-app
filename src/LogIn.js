@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
+import FunctionalButton from './FunctionalButton';
 import  friends from './friends.json';
 
 const style = {
@@ -102,10 +103,12 @@ function LogIn(props) {
             onChange={(e)=>{setPassword(e.target.value)}}
             />
         </div>
-        <div style={props.buttonDiv}>
-            <button 
-            type="submit" 
-            onClick = {logOnSubmit}>log</button>
+        <div>
+          <FunctionalButton 
+            buttonStyle = {props.buttonDiv}
+            callbackFunction = {logOnSubmit}
+            textValue = {"Log to chat"}
+            />
         </div>
             
         </div>

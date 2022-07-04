@@ -3,6 +3,7 @@ import Chat from './Chat';
 import LogIn from './LogIn';
 import SignIn from './SignIn';
 import BigButton from './BigButton';
+import FunctionalButton from './FunctionalButton';
 import './App.css';
 import {useState} from 'react'; 
 import {Link} from 'react-router-dom';
@@ -90,13 +91,11 @@ const loginDiv = (
     (<>
     <h1 data-testid="welcome">Welcome {loggedUser.name} to your chat.</h1>
     <Link to="/">
-    <button type="submit"
-    style={style.logoutButton}
-    onClick ={()=>{sessionStorage.setItem('name','');sessionStorage.setItem('id','-1');
-    window.location.reload(false)}}
-    >
-      Logout
-    </button>
+      <FunctionalButton 
+        style=""
+        callbackFunction = {()=>{sessionStorage.setItem('name','');sessionStorage.setItem('id','-1');}}
+        textValue = {"Logout"}
+      />
     </Link>
     <Chat loggedUser={loggedUser}/> 
     </>);
